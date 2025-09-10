@@ -324,30 +324,37 @@ function runSimulation() {
       const EnchantRelicChance = 0.28;
       const ExaltedRelicChance = 0.05;
   
-      // Calculate base weights
+      // Calculate dynamic weights for all fish
       let dynWeights = fishKeys.map(name => {
           const c = Choices[name];
           const fishBaseWeight = c[12] || 0;
   
+          // Rod cannot handle the weight
           if (rodMaxKG < fishBaseWeight) return 0;
   
-          if (name === "Enchant Relic" && currentArea !== "The Depths") {
-              // will be force-set later
-              return 0;
-          }
-          if (name === "Exalted Relic") {
-              // will be force-set later
-              return 0;
+          if (name === "Enchant Relic") {
+              if (currentArea === "The Depths") {
+                  // Use normal Chance() in The Depths
+                  return Chance(
+                      c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
+                      LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
+                  );
+              } else {
+                  // Will be set via relicPercentages later
+                  return 0;
+              }
           }
   
-          // normal chance
+          if (name === "Exalted Relic") return 0; // handled later
+  
+          // Normal fish
           return Chance(
               c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
               LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
           );
       });
   
-      // Forced relics (only outside The Depths for Enchant Relic)
+      // Assign relic percentages if rod qualifies (outside The Depths)
       const relicPercentages = {};
       if (rodMaxKG >= (Choices["Enchant Relic"]?.[12] || 0) && currentArea !== "The Depths") {
           relicPercentages["Enchant Relic"] = EnchantRelicChance;
@@ -356,33 +363,42 @@ function runSimulation() {
           relicPercentages["Exalted Relic"] = ExaltedRelicChance;
       }
   
-      // Normal fish total = anything not in relicPercentages
+      // Scale only normal fish weights to sum to remainingPercent
       const relicTotal = Object.values(relicPercentages).reduce((a, b) => a + b, 0);
       let normalTotal = 0;
       dynWeights.forEach((w, i) => {
           const name = fishKeys[i];
-          if (!(name in relicPercentages)) normalTotal += w;
+          if (!(name === "Enchant Relic" && currentArea === "The Depths")) {
+              normalTotal += w;
+          }
       });
-  
       const remainingPercent = 100 - relicTotal;
       const scale = normalTotal > 0 ? remainingPercent / normalTotal : 1;
-  
       dynWeights = dynWeights.map((w, i) => {
           const name = fishKeys[i];
-          if (name in relicPercentages) {
-              return relicPercentages[name]; // forced %
-          } else {
-              return w * scale; // scaled %
+          if (!(name === "Enchant Relic" && currentArea === "The Depths")) {
+              return w * scale;
+          }
+          return w; // leave Enchant Relic as-is in The Depths
+      });
+  
+      // Set force-set relic percentages for other areas
+      fishKeys.forEach((name, i) => {
+          if (relicPercentages[name] !== undefined) {
+              dynWeights[i] = relicPercentages[name];
           }
       });
   
-      // Pick fish
+      // Pick fish based on weighted chance
       const sel = randomChoiceWeighted(fishKeys, dynWeights);
       Choices[sel][4] = (Choices[sel][4] || 0) + 1;
   
-      lastDynWeights = dynWeights.slice();
+      lastDynWeights = dynWeights.slice(); // save final weights including relics
       return progressFormula(Choices[sel], ProgressRod);
   }
+
+
+
 
 
   while(CurrentTime<=EndTime){
@@ -393,12 +409,13 @@ function runSimulation() {
 
   const weightPercents = fishKeys.map((name,i)=>{
       const c=Choices[name];
-      const fishBaseWeight = c[12]||0;
+      const fishBaseWeight = c[12] || 0;
       const rodMaxKG = (baseStats[4]||0)+(SelectedEnchantStats[4]||0);
       if(rodMaxKG < fishBaseWeight) return 0;
       const total = lastDynWeights.reduce((a,b)=>a+b,0);
       return total ? (100*lastDynWeights[i]/total) : 0;
   });
+
 
   let totalXP=0, totalMoney=0;
   fishKeys.forEach(name=>{
@@ -408,15 +425,13 @@ function runSimulation() {
     totalMoney += (c[1]||0)*count;
   });
 
-  function formatPercent(value) {
-    if (value >= 0.001) return parseFloat(value.toFixed(3)) + "%";
-    if (value >= 0.000001) return parseFloat(value.toFixed(6)) + "%";
-    return parseFloat(value.toFixed(8)) + "%";
+  function formatPercent(value){
+    if(value>=0.001) return parseFloat(value.toFixed(3))+"%";
+    if(value>=0.000001) return parseFloat(value.toFixed(6))+"%";
+    return parseFloat(value.toFixed(8))+"%";
   }
 
-  let totalWeight = lastDynWeights.reduce((a, b) => a + b, 0);
-
-  let html = `<table>
+  let html=`<table>
     <thead>
       <tr>
         <th>Name</th><th>Weather</th><th>Time</th><th>Season</th><th>Bait</th>
@@ -425,16 +440,14 @@ function runSimulation() {
     </thead>
     <tbody>`;
 
-  fishKeys.forEach((name, i) => {
-    const c = Choices[name];
-    const progSpeed = progressFormula(c, ProgressRod).toFixed(2);
-    const fishBaseWeight = c[12] || 0;
-    const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
+  fishKeys.forEach((name,i)=>{
+    const c=Choices[name];
+    const progSpeed=progressFormula(c,ProgressRod).toFixed(2);
+    const fishBaseWeight=c[12]||0;
+    const rodMaxKG=(baseStats[4]||0)+(SelectedEnchantStats[4]||0);
+    const uncatchable=rodMaxKG<fishBaseWeight || weightPercents[i] === 0;
 
-    const uncatchable = rodMaxKG < fishBaseWeight || (lastDynWeights[i] || 0) === 0;
-    const percent = totalWeight > 0 ? formatPercent((lastDynWeights[i] / totalWeight) * 100) : "0%";
-
-    html += `<tr${uncatchable ? ' class="uncatchable"' : ''}>
+    html+=`<tr${uncatchable?' class="uncatchable"':''}>
       <td>${name}</td>
       <td>${c[10]}</td>
       <td>${c[7]}</td>
@@ -443,43 +456,18 @@ function runSimulation() {
       <td>${c[1]}</td>
       <td>${c[2]}</td>
       <td>${fishBaseWeight}</td>
-      <td>${percent}</td>
+      <td>${formatPercent(weightPercents[i])}</td>
       <td>${c[0]}</td>
       <td>${c[4]}</td>
     </tr>`;
   });
 
-  html += `</tbody></table>
+  html+=`</tbody></table>
     <p><b>Total XP Gained:</b> ${totalXP}</p>
     <p><b>Total Money Earned:</b> C$${totalMoney.toFixed(2)}</p>`;
 
-  document.getElementById("results").innerHTML = html;
-
+  document.getElementById("results").innerHTML=html;
 }
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
