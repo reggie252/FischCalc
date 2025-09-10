@@ -1,0 +1,164 @@
+{
+    "Roslit Bay": {
+        "Surrounding Ocean Fish": [ "Driftwood",  "Log",  "Mackerel",  "Mullet",  "Sardine",  "Haddock",  "Sea Bass",  "Salmon",  "Common Crate",  "Amberjack",  "Cod",  "Nurse Shark",  "Chinook Salmon",  "Yellow Boxfish",  "Squid",  "Swordfish",  "Halibut",  "Pufferfish",  "Flying Fish",  "Crown Bass",  "Dumbo Octopus",  "Mythic Fish",  "Manta Ray"],
+        "Coral Reef Fish": [ "Driftwood",  "Log",  "Butterflyfish",  "Common Crate",  "Blue Tang",  "Clownfish",  "Ribbon Eel",  "Nurse Shark",  "Angelfish",  "Yellow Boxfish",  "Pufferfish",  "Crown Bass",  "Dumbo Octopus",  "Bull Shark",  "Manta Ray"],
+        "Freshwater Pond Fish": [ "Driftwood",  "Minnow",  "Chub",  "Perch",  "Pumpkinseed",  "Alligator Gar",  "Arapaima",  "Axolotl"],
+        "Freshwater Pond Seaweed Fish": [ "Seaweed",  "Driftwood",  "Minnow",  "Trout",  "Perch",  "Pumpkinseed",  "Alligator Gar",  "Arapaima",  "Suckermouth Catfish",  "Axolotl"],
+        "Roslit Volcano Fish": [ "Rock",  "Basalt",  "Magma Tang",  "Ember Perch",  "Ember Snapper",  "Quality Bait Crate",  "Pyrogrub",  "Volcanic Geode",  "Obsidian Salmon",  "Obsidian Swordfish",  "Inferno Wood",  "Molten Banshee"],
+        "Clam Abundance Fish": [ "Driftwood",  "Log",  "Cod",  "Clam",  "Squid",  "Flying Fish",  "Mythic Fish"],
+        "Ashfall Fish": [ "Coelacanth",  "Molten Minnow",  "Pyro Pike",  "Scooty Salmon",  "Lava Lamprey",  "Blistered Eel",  "Burnt Betta",  "Ember Catfish",  "Cinder Carp",  "Ashcloud Archerfish"]
+    },
+    "Treasure Island": {
+        "Treasure Island Fish": [ "Crowned Royal Gramma",  "Gem Anchovy",  "Coin Triggerfish",  "Bluegem Angelfish",  "Gem Salmon",  "Emerald Angelfish",  "Goldband Butterflyfish",  "Gemscale Mandarinfish",  "Gem Eel",  "Coin Squid",  "Golden Dorado",  "Hidden Filefish",  "Queen Angelfish",  "Coin Piranha",  "Net Wolffish",  "Ruby Lionfish",  "Gem Dolphin",  "Gem Marlin",  "Gemstone Whale Shark",  "Goldfin Octopus",  "Gem Blobfish"]
+    },
+    "Crystal Cove": {
+        "Crystal Cove Fish": [ "Destroyed Fossil",  "Scrap Metal",  "Deep-sea Dragonfish",  "Deep-sea Hatchetfish",  "Three-eyed Fish",  "Depth Octopus",  "Frilled Shark",  "Luminescent Minnow",  "Crystal Frilled Shark",  "Crystal Lobster",  "DJ Spinopus",  "Musical Crab",  "Mutated Crystal Shrimp",  "Opalescent Catfish",  "Pufferflute",  "Stringed Grouper"]
+    },
+    "Waveborne": {
+        "Waveborne Fish": [ "Drift Claw",  "Gale Snapper",  "Sprayfin",  "Foamrunner",  "Depth Lurker",  "Ripple Spine",  "Tropical Bait Crate",  "Abyss Dart",  "Surge Pike",  "Tide Fang",  "Breaker Moth",  "Gust Tail",  "Wave Piercer",  "Vortex Ray",  "Storm Skipper"]
+    },
+    "Isle of New Beginnings": {
+        "Isle of New Beginnings Fish": [ "Reefdart",  "Tidallow",  "Crestscale",  "Horizon Tetra",  "Driftfin",  "Tropical Bait Crate",  "Lantern Snapper",  "Abyss Flicker",  "Tartaruga",  "Whisper Eel",  "Phantom Koi"],
+        "Whale Interior Fish": [ "Gulf Toadfish",  "Oyster Toadfish",  "Smooth Toadfish",  "Splendid Toadfish",  "Bearded Toadfish",  "Giant Moray"]
+    },
+    "The Depths": {
+        "The Depths Fish": [ "Destroyed Fossil",  "Scrap Metal",  "Deep-sea Dragonfish",  "Deep-sea Hatchetfish",  "Three-eyed Fish",  "Depth Octopus",  "Frilled Shark",  "Luminescent Minnow",  "Goblin Shark",  "Spider Crab",  "Black Dragon Fish",  "Small Spine Chimera",  "Ancient Eel",  "Nautilus",  "Mutated Shark",  "Sea Snake",  "Barreleye Fish",  "Enchant Relic"],
+        "Absolute Darkness Fish": [ "Destroyed Fossil",  "Scrap Metal",  "Deep-sea Dragonfish",  "Deep-sea Hatchetfish",  "Three-eyed Fish",  "Depth Octopus",  "Frilled Shark",  "Luminescent Minnow",  "Goblin Shark",  "Spider Crab",  "Black Dragon Fish",  "Small Spine Chimera",  "Ancient Eel",  "Nautilus",  "Mutated Shark",  "Sea Snake",  "Barreleye Fish",  "Ancient Depth Serpent",  "Enchant Relic"]
+    },
+    "Ocean": {
+        "Ocean Fish": [ "Seaweed",  "Boot",  "Tire",  "Mackerel",  "Mullet",  "Porgy",  "Sardine",  "Haddock",  "Sea Bass",  "Salmon",  "Yellowfin Tuna",  "Fish Barrel",  "Common Crate",  "Barracuda",  "Bait Crate",  "Amberjack",  "Cod",  "Nurse Shark",  "Chinook Salmon",  "Swordfish",  "Bluefin Tuna",  "Stingray",  "Halibut",  "Sailfish",  "Pufferfish",  "Dolphin",  "Flying Fish",  "Sawfish",  "Crown Bass",  "Moonfish",  "Mythic Fish",  "Sea Pickle",  "Boots",  "Long Pike",  "Mustard"],
+        "Deep Ocean Fish": [ "Seaweed",  "Boot",  "Tire",  "Mackerel",  "Mullet",  "Sardine",  "Sea Bass",  "Salmon",  "Yellowfin Tuna",  "Common Crate",  "Barracuda",  "Bait Crate",  "Amberjack",  "Cod",  "Chinook Salmon",  "Swordfish",  "Bluefin Tuna",  "Stingray",  "Halibut",  "Quality Bait Crate",  "Sailfish",  "Anglerfish",  "Coelacanth",  "Carbon Crate",  "Dolphin",  "Flying Fish",  "Sawfish",  "Crown Bass",  "Moonfish",  "Oarfish",  "Colossal Squid",  "Mythic Fish",  "Sea Pickle",  "Long Pike",  "Mustard",  "Blobfish"],
+        "Hidden Scallop Abundance Fish": [ "Seaweed",  "Boot",  "Tire",  "Scallop"],
+        "Harvesters Spike Fish": [ "Mackerel",  "Mullet",  "Sardine",  "Sea Bass",  "Sockeye Salmon",  "Salmon",  "Common Crate",  "Barracuda",  "Bait Crate",  "Amberjack",  "Cod",  "Nurse Shark",  "Chinook Salmon",  "Swordfish",  "Bluefin Tuna",  "Halibut",  "Carbon Crate",  "Pufferfish",  "Sawfish",  "Sea Pickle"],
+        "The Arch Fish": [ "Seaweed",  "Boot",  "Tire",  "Mackerel",  "Mullet",  "Sardine",  "Haddock",  "Sea Bass",  "Salmon",  "Yellowfin Tuna",  "Fish Barrel",  "Common Crate",  "Barracuda",  "Bait Crate",  "Amberjack",  "Cod",  "Chinook Salmon",  "Bluefin Tuna",  "Halibut",  "Sailfish",  "Rabbitfish",  "Moonfish",  "Sea Pickle"],
+        "Strange Whirlpool Fish": [ "Seaweed",  "Boot",  "Tire",  "Mackerel",  "Mullet",  "Sardine",  "Haddock",  "Sea Bass",  "Fish Barrel",  "Common Crate",  "Barracuda",  "Bait Crate",  "Amberjack",  "Cod",  "Quality Bait Crate",  "Carbon Crate",  "Cookiecutter Shark",  "Isonade",  "The Depths Key"],
+        "Great White Shark Fish": [ "Driftwood",  "Mackerel",  "Mullet",  "Porgy",  "Sardine",  "Haddock",  "Sea Bass",  "Common Crate",  "Barracuda",  "Amberjack",  "Cod",  "Sailfish",  "Cookiecutter Shark",  "Great White Shark"],
+        "Great Hammerhead Shark Fish": [ "Driftwood",  "Mackerel",  "Mullet",  "Porgy",  "Sardine",  "Haddock",  "Sea Bass",  "Common Crate",  "Barracuda",  "Amberjack",  "Cod",  "Sailfish",  "Cookiecutter Shark",  "Great Hammerhead Shark"],
+        "Whale Shark Fish": [ "Driftwood",  "Mackerel",  "Mullet",  "Porgy",  "Sardine",  "Haddock",  "Sea Bass",  "Common Crate",  "Barracuda",  "Amberjack",  "Cod",  "Sailfish",  "Cookiecutter Shark",  "Whale Shark"]
+    },
+    "Desolate Deep": {
+        "Desolate Pocket Fish": [ "Rock",  "Stalactite",  "Log",  "Slate Tuna",  "Horseshoe Crab",  "Coral Geode",  "Common Crate",  "Phantom Ray",  "Cockatoo Squid",  "Rockstar Hermit Crab",  "Banditfish",  "Midnight Axolotl",  "Barbed Shark",  "Emperor Jellyfish",  "String"],
+        "Brine Pool Fish": [ "Rock",  "Stalactite",  "Bone",  "Gazerfish",  "Coral Geode",  "Common Crate",  "Brine Shrimp",  "Globe Jellyfish",  "Dweller Catfish",  "Brine Phantom",  "Spectral Serpent"]
+    },
+    "The Laboratory": {
+    },
+    "Fischmas": {
+    },
+    "Northern Expedition": {
+        "Surrounding Ocean Fish": [ "Seaweed",  "Boot",  "Tire",  "Mackerel",  "Mullet",  "Porgy",  "Sardine",  "Haddock",  "Sea Bass",  "Salmon",  "Yellowfin Tuna",  "Fish Barrel",  "Common Crate",  "Barracuda",  "Bait Crate",  "Amberjack",  "Cod",  "Nurse Shark",  "Chinook Salmon",  "Swordfish",  "Bluefin Tuna",  "Stingray",  "Halibut",  "Sailfish",  "Pufferfish",  "Dolphin",  "Flying Fish",  "Sawfish",  "Crown Bass",  "Moonfish",  "Glass Diamond",  "Mythic Fish",  "Sea Pickle"],
+        "Overgrowth Caves Fish": [ "Seaweed",  "Boot",  "Tire",  "Icy Salmon",  "Fish Barrel",  "Common Crate",  "Ice Anchovy",  "Bait Crate",  "Frigid Crab",  "Icy Carp",  "Icy Tuna",  "Icy Goldfish",  "Frigid Antlers",  "Frozen Walnut",  "Glass Diamond"],
+        "Frigid Cavern Fish": [ "Seaweed",  "Boot",  "Tire",  "Ice Eel",  "Fish Barrel",  "Common Crate",  "Bait Crate",  "Frigid Shrimp",  "Ice Octopus",  "Ice Jellyfish",  "Snowfish",  "Frigid Taco",  "Polar Alligator",  "Frigid Mammoth Tusk",  "Glass Diamond"],
+        "Cryogenic Canal Fish": [ "Seaweed",  "Boot",  "Tire",  "Snowflake Smelt",  "Frost Minnow",  "Fish Barrel",  "Common Crate",  "Bait Crate",  "Snowback Char",  "Iced Perch",  "Icebreaker Haddock",  "Frozen Pike",  "Chillfin Herring",  "Frostjaw Cod",  "Aurora Trout",  "Glacial Sturgeon"],
+        "Glacial Grotto Fish": [ "Seaweed",  "Boot",  "Tire",  "Fish Barrel",  "Common Crate",  "Bait Crate",  "Snowgill Dace",  "Frostling Goby",  "Icy Walleye",  "Chillback Whitefish",  "Frostbite Flounder",  "Shiverfin Haddock",  "Glacier Swordfish",  "Icefang Barracuda",  "Borealis Snapper",  "Icebeard Shark"]
+    },
+    "Terrapin Island": {
+        "Surrounding Ocean Fish": [ "Driftwood",  "Log",  "Largemouth Bass",  "Gudgeon",  "Smallmouth Bass",  "Sea Bass",  "Walleye",  "Fish Barrel",  "Common Crate",  "White Bass",  "Redeye Bass",  "Chinook Salmon",  "Golden Smallmouth Bass",  "Sea Turtle",  "Manatee"],
+        "Olm Cave Fish": [ "Driftwood",  "Log",  "Largemouth Bass",  "Gudgeon",  "Smallmouth Bass",  "Sea Bass",  "Walleye",  "Fish Barrel",  "Common Crate",  "White Bass",  "Redeye Bass",  "Chinook Salmon",  "Olm"]
+    },
+    "Grand Reef": {
+        "Grand Reef Fish": [ "Seaweed",  "Boot",  "Tire",  "Reef Minnow",  "Coral Chromis",  "Coral Guard",  "Fish Barrel",  "Common Crate",  "Reef Goby",  "Bait Crate",  "Crystal Wrasse",  "Reef Parrotfish",  "Coral Emperor",  "Grand Reef Guardian"],
+        "Atlantean Storm Fish": [ "Tempest Ray",  "Abyss Snapper",  "Vortex Barracuda",  "Whirlpool Marlin",  "Typhoon Tuna",  "Cyclone Mako",  "Maelstorm Shark",  "Void Angler"]
+    },
+    "Lobster Shores": {
+    },
+    "Archaeological Hunt": {
+    },
+    "Atlantis": {
+        "Surrounding Ocean Fish": [ "Seaweed",  "Boot",  "Tire",  "Mackerel",  "Mullet",  "Sardine",  "Sea Bass",  "Salmon",  "Yellowfin Tuna",  "Common Crate",  "Barracuda",  "Bait Crate",  "Amberjack",  "Cod",  "Chinook Salmon",  "Swordfish",  "Bluefin Tuna",  "Stingray",  "Halibut",  "Quality Bait Crate",  "Sailfish",  "Anglerfish",  "Coelacanth",  "Carbon Crate",  "Dolphin",  "Flying Fish",  "Sawfish",  "Crown Bass",  "Moonfish",  "Oarfish",  "Colossal Squid",  "Mythic Fish",  "Sea Pickle",  "Long Pike",  "Mustard"],
+        "Sunken Depths Fish": [ "Seaweed",  "Boot",  "Tire",  "Sunken Silverscale",  "Poseidon's Perch",  "Atlantean Anchovy",  "Oracle Minnow",  "Common Crate",  "Crystal Chorus",  "Marble Maiden",  "Bait Crate",  "Atlantean Guardian",  "Helios Ray",  "Philosopher's Fish",  "Triton's Herald",  "Atlantean Alchemist",  "Quality Bait Crate",  "Carbon Crate",  "Twilight Glowfish",  "Deep Crownfish",  "Celestial Koi"],
+        "Ethereal Abyss Fish": [ "Seaweed",  "Boot",  "Tire",  "Column Crawler",  "Aqua Scribe",  "Neptune's Nibbler",  "Atlantean Sardine",  "Mosaic Swimmer",  "Temple Drifter",  "Echo Fisher",  "Common Crate",  "Bait Crate",  "Oracle's Eye",  "Siren Singer",  "Chronos Deep Swimmer",  "Starlit Weaver",  "Quality Bait Crate",  "Voidscale Guppy",  "Carbon Crate",  "Mage Marlin",  "King Jellyfish"],
+        "Poseidon Temple Fish": [ "Seaweed",  "Boot",  "Tire",  "Colossal Carp",  "Common Crate",  "Titan Tuna",  "Bait Crate",  "Giant Manta",  "Leviathan Bass",  "Massive Marlin",  "Quality Bait Crate",  "Titanic Sturgeon",  "Carbon Crate",  "Titanfang Grouper",  "Deep Behemoth",  "Deep Emperor",  "Abyssal Goliath"],
+        "Zeus's Rod Room Fish": [ "Seaweed",  "Boot",  "Tire",  "Voltfin Carp",  "Lightning Minnow",  "Sparkfin Tetra",  "Common Crate",  "Static Ray",  "Bait Crate",  "Thunder Bass",  "Storm Eel",  "Quality Bait Crate",  "Stormcloud Angelfish",  "Lightning Pike",  "Carbon Crate",  "Thunder Serpent",  "Zeus' Herald"],
+        "Kraken Pool Fish": [ "Seaweed",  "Boot",  "Tire",  "Tentacled Horror",  "Shadowfang Snapper",  "Common Crate",  "Bait Crate",  "Tentacle Eel",  "Deep One",  "Quality Bait Crate",  "Eldritch Horror",  "Carbon Crate",  "Abyssal King",  "Kraken's Herald",  "Abyssal Devourer",  "Void Emperor"],
+        "Kraken Hunt Fish": [ "Seaweed",  "Boot",  "Tire",  "Tentacled Horror",  "Shadowfang Snapper",  "Common Crate",  "Bait Crate",  "Tentacle Eel",  "Deep One",  "Quality Bait Crate",  "Eldritch Horror",  "Carbon Crate",  "Abyssal King",  "Kraken's Herald",  "Abyssal Devourer",  "Void Emperor",  "The Kraken"],
+        "Ancient Kraken Hunt Fish": [ "Seaweed",  "Boot",  "Tire",  "Tentacled Horror",  "Shadowfang Snapper",  "Common Crate",  "Bait Crate",  "Tentacle Eel",  "Deep One",  "Quality Bait Crate",  "Eldritch Horror",  "Carbon Crate",  "Abyssal King",  "Kraken's Herald",  "Abyssal Devourer",  "Void Emperor",  "Ancient Kraken"]
+    },
+    "Aquarium": {
+    },
+    "Azure Lagoon": {
+        "Azure Lagoon Fish": [ "Murkfin",  "Brackscale",  "Lagoon Dart",  "Swampjaw",  "Glimmer Guppy",  "Reed Striker",  "Algae Lurker",  "Tropical Bait Crate",  "Azure Prowler",  "Phantom Brine",  "Bloomtail",  "Depth Drifter",  "Verdant Mirage"]
+    },
+    "Lushgrove": {
+        "Lushgrove Fish": [ "Bogscale",  "Murkdrifter",  "Canopy Tetra",  "Vinefish",  "Fogstripe",  "Hollow Snapper",  "Relic Dart",  "Temple Perch",  "Tropical Bait Crate",  "Glade Lurker",  "Echo Koi",  "Jungle Phantom",  "Idolfish",  "Primordial Levi"],
+        "Carrot Garden Fish": [ "Carrot Goldfish",  "Carrot Pufferfish",  "Carrot Eel",  "Carrot Minnow",  "Carrot Salmon",  "Carrot Turtle",  "Carrot Snapper",  "Carrot Shark"]
+    },
+    "The Hunt: Mega Edition": {
+    },
+    "Vertigo": {
+        "Vertigos Dip Fish": [ "Rock",  "Spiderfish",  "Common Crate",  "Twilight Eel",  "Bait Crate",  "Fangborn Gar",  "Quality Bait Crate",  "Abyssacuda",  "Voidfin Mahi",  "Carbon Crate",  "Rubber Ducky",  "The Depths Key"],
+        "The Depths Fish": [ "Destroyed Fossil",  "Scrap Metal",  "Deep-sea Dragonfish",  "Deep-sea Hatchetfish",  "Three-eyed Fish",  "Depth Octopus",  "Frilled Shark",  "Luminescent Minnow",  "Goblin Shark",  "Spider Crab",  "Black Dragon Fish",  "Small Spine Chimera",  "Ancient Eel",  "Nautilus",  "Mutated Shark",  "Sea Snake",  "Barreleye Fish",  "Enchant Relic"],
+        "Absolute Darkness Fish": [ "Destroyed Fossil",  "Scrap Metal",  "Deep-sea Dragonfish",  "Deep-sea Hatchetfish",  "Three-eyed Fish",  "Depth Octopus",  "Frilled Shark",  "Luminescent Minnow",  "Goblin Shark",  "Spider Crab",  "Black Dragon Fish",  "Small Spine Chimera",  "Ancient Eel",  "Nautilus",  "Mutated Shark",  "Sea Snake",  "Barreleye Fish",  "Ancient Depth Serpent",  "Enchant Relic"]
+    },
+    "The Cursed Shores": {
+        "The Cursed Shores Fish": [ "Blisterfish",  "Gloombiter",  "Murkslither",  "Rotjaw",  "Tumor Pike",  "Split Eye Snapper",  "Hollowfin",  "Crawling Angler",  "Tropical Bait Crate",  "Screaming Fluke",  "Veinspawn",  "Chasm Leech",  "Dreaming Aberration",  "Abyssborn Monstrosity"]
+    },
+    "Forsaken Shores": {
+        "Surrounding Ocean Fish": [ "Seaweed",  "Boot",  "Tire",  "Shortfin Mako Shark",  "Corsair Grouper",  "Galleon Goliath",  "Buccaneer Barracuda",  "Fish Barrel",  "Common Crate",  "Bait Crate",  "Scurvy Sailfish",  "Cutlass Fish",  "Cursed Eel",  "Reefrunner Snapper",  "Shipwreck Barracuda",  "Golden Seahorse"],
+        "Coral Reef Fish": [ "Seaweed",  "Boot",  "Tire",  "Corsair Grouper",  "Fish Barrel",  "Common Crate",  "Bait Crate",  "Scurvy Sailfish",  "Cutlass Fish",  "Reefrunner Snapper"],
+        "Freshwater Pond Fish": [ "Seaweed",  "Boot",  "Tire",  "Corsair Grouper",  "Fish Barrel",  "Common Crate",  "Bait Crate",  "Scurvy Sailfish",  "Cutlass Fish",  "Reefrunner Snapper",  "Captain's Goldfish"]
+    },
+    "Trade Plaza": {
+    },
+    "Official Fisch Wiki": {
+    },
+    "Open Ocean": {
+        "Open Ocean Fish": [ "Rock Gunnel",  "Pupfish",  "Hogchoker",  "Black Swallower",  "Warty Angler",  "Four Eyes Fish",  "Boarfish",  "Snipefish",  "Lumpclinger",  "Fangtooth",  "Tropical Bait Crate",  "Telescopefish",  "Knifefish",  "Sarcastic Fringehead",  "Snakehead",  "Velvet Belly Lanternshark",  "Bigfin Squid",  "Pelican Eel",  "Tripod Fish",  "Cursed Thread",  "X-ray Tetra",  "Toilet Fish",  "Psychedelic Frogfish",  "Dogefin"],
+        "Sea Leviathan Fish": [ "Rock Gunnel",  "Pupfish",  "Hogchoker",  "Black Swallower",  "Warty Angler",  "Four Eyes Fish",  "Boarfish",  "Snipefish",  "Lumpclinger",  "Fangtooth",  "Tropical Bait Crate",  "Telescopefish",  "Knifefish",  "Sarcastic Fringehead",  "Snakehead",  "Velvet Belly Lanternshark",  "Bigfin Squid",  "Pelican Eel",  "Tripod Fish",  "X-ray Tetra",  "Sea Leviathan",  "Toilet Fish",  "Psychedelic Frogfish",  "Dogefin"]
+    },
+    "Ancient Isle": {
+        "Surrounding Ocean Fish": [ "Tire",  "Mullet",  "Piranha",  "Sardine",  "Sea Bass",  "Starfish",  "Onychodus",  "Fish Barrel",  "Common Crate",  "Bait Crate",  "Cod",  "Anomalocaris",  "Xiphactinus",  "Acanthodii",  "Hyneria",  "Cobia",  "Carbon Crate",  "Ginsu Shark",  "Dunkleosteus",  "Helicoprion",  "Mosasaurus",  "Meg's Spine",  "Colossal Squid",  "Meg's Fang",  "Banana",  "Ancient Fragment"],
+        "Waterfall Fish": [ "Log",  "Piranha",  "Cladoselache",  "Anomalocaris",  "Xiphactinus",  "Hyneria",  "Hallucigenia",  "Leedsichthys",  "Banana"],
+        "Freshwater Pond Fish": [ "Log",  "Piranha",  "Cladoselache",  "Anomalocaris",  "Xiphactinus",  "Hyneria",  "Hallucigenia",  "Floppy",  "Banana"],
+        "Ancient Archives Fish": [ "Seaweed",  "Boot",  "Tire",  "Fish Barrel",  "Common Crate",  "Bait Crate",  "Birgeria",  "Palaeoniscum",  "Phanerorhynchus",  "Diplurus",  "Lepidotes",  "Amblypterus"],
+        "Normal Fish": [ "Seaweed",  "Boot",  "Tire",  "Mackerel",  "Mullet",  "Sardine",  "Sea Bass",  "Salmon",  "Yellowfin Tuna",  "Common Crate",  "Barracuda",  "Bait Crate",  "Amberjack",  "Cod",  "Chinook Salmon",  "Swordfish",  "Bluefin Tuna",  "Stingray",  "Halibut",  "Quality Bait Crate",  "Sailfish",  "Anglerfish",  "Coelacanth",  "Carbon Crate",  "Dolphin",  "Flying Fish",  "Sawfish",  "Crown Bass",  "Moonfish",  "Oarfish",  "Colossal Squid",  "Mythic Fish",  "Sea Pickle",  "Megalodon",  "Ancient Megalodon"],
+        "Eclipse and Weekend Fish": [ "Seaweed",  "Boot",  "Tire",  "Mackerel",  "Mullet",  "Sardine",  "Sea Bass",  "Salmon",  "Yellowfin Tuna",  "Common Crate",  "Barracuda",  "Bait Crate",  "Amberjack",  "Cod",  "Chinook Salmon",  "Swordfish",  "Bluefin Tuna",  "Stingray",  "Halibut",  "Quality Bait Crate",  "Sailfish",  "Anglerfish",  "Coelacanth",  "Carbon Crate",  "Dolphin",  "Flying Fish",  "Sawfish",  "Crown Bass",  "Moonfish",  "Oarfish",  "Colossal Squid",  "Mythic Fish",  "Sea Pickle",  "Megalodon",  "Ancient Megalodon",  "Phantom Megalodon"]
+    },
+    "Castaway Cliffs": {
+        "Castaway Cliffs Fish": [ "Flamekissed Hawkfish",  "Clowned Triggerfish",  "Cobalt Angelfish",  "Mandarinfish",  "Trevally",  "Warty Frogfish",  "Hidden Pipefish",  "Mirage Toadfish",  "Scalloped Hammerhead",  "Great Goldcursed Shark"]
+    },
+    "Moosewood": {
+        "Surrounding Ocean Fish": [ "Seaweed",  "Boot",  "Tire",  "Mackerel",  "Red Snapper",  "Trout",  "Sockeye Salmon",  "Anchovy",  "Yellowfin Tuna",  "Fish Barrel",  "Common Crate",  "Barracuda",  "Bait Crate",  "Eel",  "Flounder",  "Moonfish",  "Bull Shark"],
+        "Docks Fish": [ "Seaweed",  "Driftwood",  "Mackerel",  "Red Snapper",  "Trout",  "Sockeye Salmon",  "Anchovy",  "Common Crate",  "Bait Crate",  "Snook",  "Flounder",  "Pike"],
+        "Freshwater Pond Fish": [ "Driftwood",  "Tire",  "Trout",  "Largemouth Bass",  "Bream",  "Carp",  "Common Crate",  "Goldfish",  "Eel",  "Pike",  "Whiptail Catfish"],
+        "Seaweed and Mini-Island Fish": [ "Seaweed",  "Boot",  "Tire",  "Red Snapper",  "Trout",  "Sockeye Salmon",  "Anchovy",  "Yellowfin Tuna",  "Fish Barrel",  "Common Crate",  "Barracuda",  "Bait Crate",  "Eel",  "Flounder",  "Whisker Bill",  "Treble Bass"]
+    },
+    "Snowcap Island": {
+        "Surrounding Ocean Fish": [ "Ice",  "Tire",  "Pollock",  "Mullet",  "Bluegill",  "Herring",  "Porgy",  "Sardine",  "Sea Bass",  "Red Drum",  "Arctic Char",  "Salmon",  "Fish Barrel",  "Common Crate",  "Bait Crate",  "Cod",  "Lingcod",  "Skipjack Tuna",  "Carbon Crate",  "Moon Wood",  "Moonfish",  "Colossal Squid",  "Ringle",  "Glacierfish"],
+        "Freshwater Pond Fish": [ "Boot",  "Ice",  "Grayling",  "Burbot",  "Blackfish",  "Common Crate",  "Glacier Pike",  "Sturgeon",  "Quality Bait Crate",  "Pond Emperor",  "Baby Pond Emperor"]
+    },
+    "Emberreach": {
+        "Surrounding Ocean Fish": [ "Glowfin Skipper",  "Moltenstripe",  "Ashscale Minnow",  "Sunflare Tetra",  "Smolderfang",  "Furnace Leaper",  "Inferno Chaser",  "Volcanic Prowler",  "Tropical Bait Crate",  "Cinder Dart",  "Scorchray",  "Brimstone Angler",  "Obsidian Koi"],
+        "Freshwater Pond Fish": [ "Pyre Fang",  "Firecrest",  "Smogfish",  "Sulfur Snapper",  "Cragscale",  "Blazebelly",  "Tropical Bait Crate",  "Tropicspike"],
+        "Volcano Fish": [ "Lava Bream",  "Hellmaw Eel",  "Magma Pike",  "Searfin",  "Basalt Pike",  "Emberwing",  "Molten Ripple"]
+    },
+    "Mushgrove Swamp": {
+        "Mushgrove Swamp Fish": [ "Driftwood",  "Fungal Cluster",  "Log",  "Swamp Bass",  "White Perch",  "Grey Carp",  "Common Crate",  "Bait Crate",  "Bowfin",  "Catfish",  "Marsh Gar",  "Carbon Crate",  "Alligator",  "Handfish",  "RocketFuel",  "Resin"]
+    },
+    "Cults Curse": {
+    },
+    "Pine Shoals": {
+        "Pine Shoals Fish": [ "Watching Glowfin",  "Drifting Gildfin",  "Blue Foamtail",  "Redwood Duskray",  "Oak Stripetail",  "Tropical Bait Crate",  "Pine Zephyrfish",  "Parktail Spinesnapper",  "Sunray Sunscale",  "Thornfish"]
+    },
+    "Statue of Sovereignty": {
+        "Keepers Altar Fish": [ "Seaweed",  "Boot",  "Tire",  "Pale Tang",  "Bluefish",  "Lapisjack",  "Keepers Guardian",  "Void Wood",  "Umbral Shark"]
+    },
+    "Netter's Haven": {
+    },
+    "Gilded Arch": {
+        "Gilded Arch Fish": [ "French Grunt",  "Coney Grouper",  "Sergeant Major",  "Doctorfish Tang",  "Squirrelfish",  "Bluehead Wrasse",  "Islandhopper Butterflyfish",  "Stoplight Parrotfish",  "Scrawled Filefish",  "Spadefish",  "Ocean Triggerfish",  "Rainbow Grouper",  "Rock Hind",  "Spotted Moray Eel",  "Great Barracuda",  "Tilefish",  "Black Grouper"]
+    },
+    "Sunstone Island": {
+        "Sunstone Island Fish": [ "Seaweed",  "Driftwood",  "Sweetfish",  "Glassfish",  "Longtail Bass",  "Red Tang",  "Chinfish",  "Trumpetfish",  "Napoleonfish",  "Quality Bait Crate",  "Sailfish",  "Mahi Mahi",  "Wiifish",  "Ancient Wood",  "Sunfish",  "Voltfish",  "Speed Core"],
+        "Crate Cave Fish": [ "Seaweed",  "Boot",  "Rock",  "Driftwood",  "Tire",  "Fish Barrel",  "Common Crate",  "Bait Crate",  "Quality Bait Crate",  "Carbon Crate"]
+    },
+    "Jurassic World Event": {
+        "Jurassic Island Ocean Pool Fish": [ "Jurassic Helicoprion",  "Giant Lamprey",  "Gillicus",  "Diplomystus",  "Dasyatis",  "Edestus",  "Rhizodus",  "Oreochima"]
+    },
+    "Mariana's Veil": {
+        "Volcanic Vents Fish": [ "Inferno Hide",  "Hellfire Haddock",  "Infernal Iguanafish",  "Embertail Eel",  "Smoldering Stingray",  "Pyrite Pufferfish",  "Molten Moray",  "Scalding Swordfish",  "Blisterback Blenny",  "Magma Leviathan"],
+        "Challenger's Deep Fish": [ "Frostscale Fangtooth",  "Cryoskin",  "Subzero Stargazer",  "Chillshadow Chub",  "Deep Freeze Devilfish",  "Iceberg Isopod",  "Cryo Coelacanth",  "Polar Prowler",  "Chillfin Chimaera",  "Frozen Leviathan"],
+        "Abyssal Zenith Fish": [ "Titanic Black Seadevil",  "Leviathan Humpback Anglerfish",  "Abyssal Bearded Seadevil",  "Colossal Saccopharynx",  "Radiant Triplewart Seadevil",  "Deeplight Footballfish",  "Voidglow Ghostfish",  "Infant Giant Seadevil",  "Giant Seadevil",  "Crowned Anglerfish"],
+        "Calm Zone Fish": [ "Quartzfin Queenfish",  "Emerald Elephantnose",  "Diamond Discus",  "Sapphire Stargazer",  "Prismatic Parrotfish",  "Ruby Rasbora",  "Crystal Corydoras",  "Shimmering Silverside",  "Crystallized Seadragon"],
+        "Veil of the Forsaken Fish": [ "Hydra Haddock",  "Kraken Koi",  "Serpent Surgeonfish",  "Gorgon Grouper",  "Siren Sculpin",  "Cyclone Scorpionfish",  "Typhoon Tailfin",  "Twilight Tentaclefish"]
+    }
+}

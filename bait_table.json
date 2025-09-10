@@ -1,0 +1,322 @@
+{
+  "Regular Bait": {
+    "Bait": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "Bagel": [
+      25,
+      0,
+      15,
+      0
+    ],
+    "Flakes": [
+      55,
+      0,
+      -3,
+      10
+    ],
+    "Gale Grub": [
+      75,
+      -10,
+      -5,
+      30
+    ],
+    "Garbage": [
+      0,
+      -250,
+      50,
+      -5
+    ],
+    "Insect": [
+      35,
+      0,
+      0,
+      5
+    ],
+    "Lushrooms": [
+      50,
+      20,
+      10,
+      10
+    ],
+    "Worm": [
+      25,
+      0,
+      0,
+      15
+    ],
+    "Maggot": [
+      0,
+      35,
+      0,
+      -10
+    ],
+    "Shrimp": [
+      45,
+      25,
+      -5,
+      0
+    ],
+    "Coral": [
+      0,
+      0,
+      20,
+      20
+    ],
+    "Ember Berries": [
+      120,
+      45,
+      15,
+      5
+    ],
+    "Magnet": [
+      200,
+      0,
+      0,
+      0
+    ],
+    "Minnow": [
+      65,
+      0,
+      -10,
+      0
+    ],
+    "Seaweed": [
+      35,
+      0,
+      10,
+      20
+    ],
+    "Squid": [
+      55,
+      45,
+      0,
+      -25
+    ],
+    "Coal": [
+      45,
+      0,
+      -10,
+      0
+    ],
+    "Crystal Bananas": [
+      150,
+      90,
+      25,
+      0
+    ],
+    "Lagoon Leech": [
+      65,
+      -10,
+      20,
+      15
+    ],
+    "Rapid Catcher": [
+      0,
+      0,
+      -15,
+      35
+    ],
+    "Super Flakes": [
+      0,
+      70,
+      -15,
+      0
+    ],
+    "Deep Coral": [
+      -10,
+      0,
+      50,
+      0
+    ],
+    "Fish Head": [
+      150,
+      0,
+      -10,
+      10
+    ],
+    "Instant Catcher": [
+      0,
+      -20,
+      -15,
+      65
+    ],
+    "Mist Worms": [
+      100,
+      80,
+      25,
+      20
+    ],
+    "Night Shrimp": [
+      0,
+      90,
+      0,
+      15
+    ],
+    "Truffle Worm": [
+      300,
+      0,
+      0,
+      -10
+    ],
+    "Weird Algae": [
+      0,
+      200,
+      0,
+      -35
+    ],
+    "Whale Bait": [
+      180,
+      20,
+      30,
+      -5
+    ],
+    "Golden Shrimp Bait": [
+      120,
+      90,
+      10,
+      15
+    ],
+    "Sapphire Krill": [
+      150,
+      150,
+      40,
+      5
+    ],
+    "Shark Head": [
+      225,
+      30,
+      10,
+      -5
+    ],
+    "Luminous Larva": [
+      200,
+      175,
+      50,
+      10
+    ]
+  },
+  "Unique Bait": {
+    "Kraken Tentacle": [
+      100,
+      35,
+      15,
+      35
+    ],
+    "Golden Tentacle": [
+      150,
+      40,
+      20,
+      50
+    ],
+    "Hangman's Hook": [
+      150,
+      35,
+      20,
+      -5
+    ],
+    "Colossal Ink Bait": [
+      150,
+      150,
+      40,
+      5
+    ],
+    "Hourglass Bait": [
+      150,
+      150,
+      40,
+      5
+    ],
+    "Snare": [
+      125,
+      -10,
+      -20,
+      80
+    ],
+    "Moonhaze": [
+      225,
+      230,
+      5,
+      60
+    ]
+  },
+  "AFK Rewards Bait": {
+    "Phantom Leech": [
+      55,
+      30,
+      25,
+      10
+    ],
+    "Glass Beetle": [
+      125,
+      -80,
+      30,
+      30
+    ],
+    "Neuro Slug": [
+      90,
+      100,
+      60,
+      -20
+    ],
+    "Toxic Jelly Core": [
+      180,
+      90,
+      35,
+      -5
+    ],
+    "Nightmare Larva": [
+      120,
+      35,
+      25,
+      25
+    ],
+    "Golden Worm": [
+      200,
+      100,
+      45,
+      20
+    ]
+  },
+  "Seasonal Event Baits": {
+    "Peppermint Worm": [
+      50,
+      30,
+      20,
+      -5
+    ],
+    "Holly Berry": [
+      80,
+      30,
+      10,
+      -5
+    ],
+    "Stud Bait": [
+      150,
+      40,
+      20,
+      50
+    ],
+    "Aurora Bait": [
+      100,
+      30,
+      10,
+      -5
+    ],
+    "Chocolate Fish": [
+      200,
+      150,
+      15,
+      20
+    ],
+    "Lucky": [
+      200,
+      150,
+      15,
+      20
+    ]
+  }
+}
