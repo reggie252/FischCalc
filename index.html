@@ -384,7 +384,10 @@ function pickAnEvent() {
     const c = Choices[name];
     const fishBaseWeight = c[12] || 0;
     const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
+
+    if (name === "Enchant Relic" && main !== "The Depths") return 0
     if (rodMaxKG < fishBaseWeight) return 0; // chance % = 0 if too heavy
+    const totalWeights = LastDynWeights.reduce((a,b)=>a+b,0);
     return totalWeights ? (100 * lastDynWeights[i] / totalWeights) : 0;
   });
 
@@ -462,6 +465,7 @@ function pickAnEvent() {
 </script>
 </body>
 </html>
+
 
 
 
