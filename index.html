@@ -411,7 +411,10 @@ function pickAnEvent() {
     const fishBaseWeight = c[12] || 0;
     const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
     const uncatchable = rodMaxKG < fishBaseWeight;
-  
+
+    const chancePercent = weightPercents[i].toFixed(3);
+    const chanceClass = (chancePercent === "0.000") ? " style='color:red; font-weight:bold;'" : "";
+    
     html+=`<tr${uncatchable?' class="uncatchable"':''}>
       <td>${name}</td>
       <td>${c[10]}</td>
@@ -421,7 +424,7 @@ function pickAnEvent() {
       <td>${c[1]}</td>
       <td>${c[2]}</td>
       <td>${fishBaseWeight}</td>
-      <td>${weightPercents[i].toFixed(3)}%</td>
+      <td${chanceClass}>${chancePercent}%</td>
       <td>${c[0]}</td>
       <td>${picks[i]}</td>
     </tr>`;
@@ -437,6 +440,7 @@ function pickAnEvent() {
 </script>
 </body>
 </html>
+
 
 
 
