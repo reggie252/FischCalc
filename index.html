@@ -388,8 +388,8 @@ function runSimulation() {
   let html=`<table>
     <thead>
       <tr>
-        <th>Name</th><th>KG</th><th>Weather</th><th>Time</th><th>Season</th><th>Bait</th>
-        <th>C$</th><th>XP</th><th>Chance %</th><th>Progress Speed</th><th>Count</th>
+        <th>Name</th><th>Weather</th><th>Time</th><th>Season</th><th>Bait</th>
+        <th>C$</th><th>XP</th><th>KG</th><th>Chance %</th><th>Progress Speed</th><th>Count</th>
       </tr>
     </thead>
     <tbody>`;
@@ -403,13 +403,13 @@ function runSimulation() {
   
     html+=`<tr${uncatchable?' class="uncatchable"':''}>
       <td>${name}</td>
-      <td>${fishBaseWeight}</td>
       <td>${c[10]}</td>
       <td>${c[7]}</td>
       <td>${c[8]}</td>
       <td>${c[9]}</td>
       <td>${c[1]}</td>
       <td>${c[2]}</td>
+      <td>${fishBaseWeight}</td>
       <td>${weightPercents[i].toFixed(2)}%</td>
       <td>${c[0]}</td>
       <td>${picks[i]}</td>
@@ -426,5 +426,6 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
