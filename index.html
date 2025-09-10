@@ -420,7 +420,7 @@ function runSimulation() {
     const progSpeed=progressFormula(c,ProgressRod).toFixed(2);
     const fishBaseWeight=c[12]||0;
     const rodMaxKG=(baseStats[4]||0)+(SelectedEnchantStats[4]||0);
-    const uncatchable=rodMaxKG<fishBaseWeight;
+    const uncatchable=rodMaxKG<fishBaseWeight || weightPercents[i] === 0;
 
     html+=`<tr${uncatchable?' class="uncatchable"':''}>
       <td>${name}</td>
@@ -446,6 +446,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
