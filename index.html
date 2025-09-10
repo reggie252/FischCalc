@@ -322,27 +322,8 @@ function runSimulation() {
       const currentArea = main;
       const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
   
-      // Set your custom relic chances
-      let EnchantRelicChance;
-      if (currentArea === "The Depths") {
-          // Use the base chance from the Chance() function for Enchant Relic
-          const relicStats = Choices["Enchant Relic"];
-          const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
-      
-          if (relicStats && rodMaxKG >= (relicStats[12] || 0)) {
-              EnchantRelicChance = Chance(
-                  relicStats[3], relicStats[5], relicStats[6], relicStats[7],
-                  relicStats[8], relicStats[9], relicStats[10], relicStats[11],
-                  LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
-              );
-          } else {
-              EnchantRelicChance = 9;
-          }
-      } else {
-          // normal fixed chance
-          EnchantRelicChance = 0.28;
-      }
-
+    
+      const EnchantRelicChance = .28;
       const ExaltedRelicChance = 0.05;
   
       // Calculate dynamic weights for normal fish (non-relics)
@@ -466,6 +447,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
