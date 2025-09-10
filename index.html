@@ -327,7 +327,6 @@ function runSimulation() {
       if (currentArea === "The Depths") {
           // Use the base chance from the Chance() function for Enchant Relic
           const relicStats = Choices["Enchant Relic"];
-          const TypeFishCurrent = relicStats ? (relicStats[6] || "Unknown") : "Unknown";
           const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
       
           if (relicStats && rodMaxKG >= (relicStats[12] || 0)) {
@@ -467,6 +466,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
