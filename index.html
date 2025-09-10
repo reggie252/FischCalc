@@ -255,12 +255,6 @@ function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, B
   let LuckSever=0, LuckEnchantment=0, LuckStacks=0, ChanceAbundance=0;
   const EventCurrent="None", FishAbundance=null, TypeFish="1Crate", LocationCurrent="Ocean";
 
-  // Set abundance override for Crate Cave Fish
-  if (SubLocationCurrent === "Crate Cave Fish") {
-      FishAbundance = "Common Crate" &&ChanceAbundance=30;
-  }
-
-
   const LuckConditions = (WeatherCurrent==="Aurora Borealis")?7:1;
   const BaitBoost = (Rod==="Resourceful Rod")?2:1;
   const LuckBait = (BaitCurrent===BaitFish)?PreferredLuck*BaitBoost:UniversalLuck*BaitBoost;
@@ -451,6 +445,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
