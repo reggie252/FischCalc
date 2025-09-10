@@ -388,21 +388,22 @@ function runSimulation() {
   let html=`<table>
     <thead>
       <tr>
-        <th>Name</th><th>Weather</th><th>Time</th><th>Season</th><th>Bait</th>
+        <th>Name</th><th>KG</th><th>Weather</th><th>Time</th><th>Season</th><th>Bait</th>
         <th>C$</th><th>XP</th><th>Chance %</th><th>Progress Speed</th><th>Count</th>
       </tr>
     </thead>
     <tbody>`;
-
+  
   fishKeys.forEach((name,i)=>{
     const c=Choices[name];
     const progSpeed=progressFormula(c,ProgressRod).toFixed(2);
     const fishBaseWeight = c[12] || 0;
     const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
     const uncatchable = rodMaxKG < fishBaseWeight;
-
+  
     html+=`<tr${uncatchable?' class="uncatchable"':''}>
       <td>${name}</td>
+      <td>${fishBaseWeight}</td>
       <td>${c[10]}</td>
       <td>${c[7]}</td>
       <td>${c[8]}</td>
@@ -414,14 +415,16 @@ function runSimulation() {
       <td>${picks[i]}</td>
     </tr>`;
   });
-
+  
   html+=`</tbody></table>
     <p><b>Total XP Gained:</b> ${totalXP}</p>
     <p><b>Total Money Earned:</b> C$${totalMoney.toFixed(2)}</p>`;
+
 
   document.getElementById("results").innerHTML=html;
 }
 </script>
 </body>
 </html>
+
 
