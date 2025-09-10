@@ -334,11 +334,10 @@ function runSimulation() {
               EnchantRelicChance = Chance(
                   relicStats[3], relicStats[5], relicStats[6], relicStats[7],
                   relicStats[8], relicStats[9], relicStats[10], relicStats[11],
-                  LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent,
-                  TypeFishCurrent
+                  LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
               );
           } else {
-              EnchantRelicChance = 0;
+              EnchantRelicChance = 9;
           }
       } else {
           // normal fixed chance
@@ -468,6 +467,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
