@@ -405,26 +405,45 @@ function pickAnEvent() {
     </thead>
     <tbody>`;
   
+  function formatChance(chance) {
+      if (chance === 0) return { value: "0%", isZero: true };
+      // Convert to string with up to 12 significant digits
+      let str = chance.toPrecision(12);
+      let num = parseFloat(str); // removes unnecessary trailing zeros
+      // Limit decimal places to 6
+      let decIndex = num.toString().indexOf(".");
+      if (decIndex >= 0 && num.toString().length - decIndex - 1 > 6) {
+          num = parseFloat(num.toFixed(6));
+      }
+      return { value: num.toString() + "%", isZero: false };
+  }
+  
+  // Then, inside your fishKeys.forEach table generation:
+  
   fishKeys.forEach((name,i)=>{
-    const c=Choices[name];
-    const progSpeed=progressFormula(c,ProgressRod).toFixed(2);
-    const fishBaseWeight = c[12] || 0;
-    const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
-    const uncatchable = rodMaxKG < fishBaseWeight;
-    
-    html+=`<tr${uncatchable?' class="uncatchable"':''}>
-      <td>${name}</td>
-      <td>${c[10]}</td>
-      <td>${c[7]}</td>
-      <td>${c[8]}</td>
-      <td>${c[9]}</td>
-      <td>${c[1]}</td>
-      <td>${c[2]}</td>
-      <td>${fishBaseWeight}</td>
-      <td>${weightPercents[i].toFixed(4)}%</td>
-      <td>${c[0]}</td>
-      <td>${picks[i]}</td>
-    </tr>`;
+      const c=Choices[name];
+      const progSpeed=progressFormula(c,ProgressRod).toFixed(2);
+      const fishBaseWeight = c[12] || 0;
+      const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
+      const uncatchable = rodMaxKG < fishBaseWeight;
+  
+      // Format chance %
+      const chanceData = formatChance(weightPercents[i]);
+      const chanceStyle = chanceData.isZero ? ' style="color:red;font-weight:bold;"' : '';
+  
+      html+=`<tr${uncatchable?' class="uncatchable"':''}>
+        <td>${name}</td>
+        <td>${c[10]}</td>
+        <td>${c[7]}</td>
+        <td>${c[8]}</td>
+        <td>${c[9]}</td>
+        <td>${c[1]}</td>
+        <td>${c[2]}</td>
+        <td>${fishBaseWeight}</td>
+        <td${chanceStyle}>${chanceData.value}</td>
+        <td>${c[0]}</td>
+        <td>${picks[i]}</td>
+      </tr>`;
   });
   
   html+=`</tbody></table>
@@ -437,6 +456,7 @@ function pickAnEvent() {
 </script>
 </body>
 </html>
+
 
 
 
