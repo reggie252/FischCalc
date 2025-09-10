@@ -380,80 +380,63 @@ function pickAnEvent() {
   const picks=fishKeys.map(name=>Choices[name][4]||0);
   const totalWeights=lastDynWeights.reduce((a,b)=>a+b,0);
 
+// ---------- inside runSimulation() ----------
+
   const weightPercents = fishKeys.map((name, i) => {
-    const c = Choices[name];
-    const fishBaseWeight = c[12] || 0;
-    const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
-
-    if (name === "Enchant Relic" && main !== "The Depths") return 0
-    if (rodMaxKG < fishBaseWeight) return 0; // chance % = 0 if too heavy
-    const totalWeights = LastDynWeights.reduce((a,b)=>a+b,0);
-    return totalWeights ? (100 * lastDynWeights[i] / totalWeights) : 0;
-  });
-
-  let totalXP=0, totalMoney=0;
-  fishKeys.forEach(name=>{
-    const c=Choices[name];
-    const count=c[4]||0;
-    totalXP+=(c[2]||0)*count;
-    totalMoney+=(c[1]||0)*count;
-  });
-
-  let html=`<table>
-    <thead>
-      <tr>
-        <th>Name</th><th>Weather</th><th>Time</th><th>Season</th><th>Bait</th>
-        <th>C$</th><th>XP</th><th>KG</th><th>Chance %</th><th>Progress Speed</th><th>Count</th>
-      </tr>
-    </thead>
-    <tbody>`;
+      const c = Choices[name];
+      const fishBaseWeight = c[12] || 0;
+      const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
   
+      // Enchant Relic blocked only by area restriction
+      if (name === "Enchant Relic" && main !== "The Depths") return 0;
+      // All other fish (including Exalted Relic) respect rod max KG
+      if (rodMaxKG < fishBaseWeight) return 0;
+  
+      const totalWeights = lastDynWeights.reduce((a,b)=>a+b,0);
+      return totalWeights ? (100 * lastDynWeights[i] / totalWeights) : 0;
+  });
+  
+  // Helper to format chances with variable significant decimals
   function formatChance(chance) {
-      if (chance === 0) return { value: "0%", isZero: true };
+      if (chance === 0) return "0%";
   
-      let str = chance.toString();
-  
-      if (!str.includes(".")) return { value: str + "%", isZero: false };
+      const str = chance.toString();
+      if (!str.includes(".")) return str + "%";
   
       let [intPart, decPart] = str.split(".");
       let cutoff = 3; // start with 3 digits after decimal
-  
-      // Increase cutoff if leading decimals are zeros
-      let leadingZeros = decPart.match(/^0*/)[0].length;
+      const leadingZeros = decPart.match(/^0*/)[0].length;
       cutoff += leadingZeros;
   
-      let formatted = intPart + "." + decPart.slice(0, cutoff);
-      return { value: formatted + "%", isZero: false };
+      // Limit to maximum length if needed
+      cutoff = Math.min(cutoff, decPart.length);
+  
+      return intPart + "." + decPart.slice(0, cutoff) + "%";
   }
-
   
-  // Then, inside your fishKeys.forEach table generation:
-  
+  // Generate table
   fishKeys.forEach((name,i)=>{
-      const c=Choices[name];
-      const progSpeed=progressFormula(c,ProgressRod).toFixed(2);
+      const c = Choices[name];
+      const progSpeed = progressFormula(c, ProgressRod).toFixed(2);
       const fishBaseWeight = c[12] || 0;
       const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
       const uncatchable = rodMaxKG < fishBaseWeight;
   
-      // Format chance %
-      const chanceData = formatChance(weightPercents[i]);
-      const chanceStyle = chanceData.isZero ? ' style="color:red;font-weight:bold;"' : '';
-  
-      html+=`<tr${uncatchable?' class="uncatchable"':''}>
-        <td>${name}</td>
-        <td>${c[10]}</td>
-        <td>${c[7]}</td>
-        <td>${c[8]}</td>
-        <td>${c[9]}</td>
-        <td>${c[1]}</td>
-        <td>${c[2]}</td>
-        <td>${fishBaseWeight}</td>
-        <td${chanceStyle}>${chanceData.value}</td>
-        <td>${c[0]}</td>
-        <td>${picks[i]}</td>
+      html += `<tr${uncatchable?' class="uncatchable"':''}>
+          <td>${name}</td>
+          <td>${c[10]}</td>
+          <td>${c[7]}</td>
+          <td>${c[8]}</td>
+          <td>${c[9]}</td>
+          <td>${c[1]}</td>
+          <td>${c[2]}</td>
+          <td>${fishBaseWeight}</td>
+          <td>${formatChance(weightPercents[i])}</td>
+          <td>${c[0]}</td>
+          <td>${picks[i]}</td>
       </tr>`;
   });
+
   
   html+=`</tbody></table>
     <p><b>Total XP Gained:</b> ${totalXP}</p>
@@ -465,6 +448,7 @@ function pickAnEvent() {
 </script>
 </body>
 </html>
+
 
 
 
