@@ -323,12 +323,26 @@ function runSimulation() {
   function pickAnEvent() {
     const currentArea = main;
 
-    let dynWeights = fishKeys.map(name => {
-      const c = Choices[name];
-      if (name === "Enchant Relic" && currentArea !== "The Depths") return 0;
-      if (name === "Exalted Relic") return 0;
-      return Chance(c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11], LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent);
-    });
+   let dynWeights = fishKeys.map(name => {
+    const c = Choices[name];
+
+    // Relic restrictions
+    if (name === "Enchant Relic" && currentArea !== "The Depths") return 0;
+    if (name === "Exalted Relic") return 0;
+
+    // Check if rod can handle the fish's base weight
+    const fishBaseWeight = c[12] || 0;           // index 12 = base weight
+    const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0); // rod max kg + enchant
+  
+    if (rodMaxKG < fishBaseWeight) return 0;     // cannot catch
+  
+    // Normal chance calculation
+    return Chance(
+      c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
+      LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
+    );
+  });
+
 
     const normalTotal = dynWeights.reduce((a,b)=>a+b,0);
     const relicPercentages = {};
@@ -404,5 +418,6 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
