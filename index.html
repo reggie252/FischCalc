@@ -408,13 +408,15 @@ function runSimulation() {
     totalMoney += (c[1]||0)*count;
   });
 
-  function formatPercent(value){
-    if(value>=0.001) return parseFloat(value.toFixed(3))+"%";
-    if(value>=0.000001) return parseFloat(value.toFixed(6))+"%";
-    return parseFloat(value.toFixed(8))+"%";
+  function formatPercent(value) {
+    if (value >= 0.001) return parseFloat(value.toFixed(3)) + "%";
+    if (value >= 0.000001) return parseFloat(value.toFixed(6)) + "%";
+    return parseFloat(value.toFixed(8)) + "%";
   }
 
-  let html=`<table>
+  let totalWeight = lastDynWeights.reduce((a, b) => a + b, 0);
+
+  let html = `<table>
     <thead>
       <tr>
         <th>Name</th><th>Weather</th><th>Time</th><th>Season</th><th>Bait</th>
@@ -423,14 +425,16 @@ function runSimulation() {
     </thead>
     <tbody>`;
 
-  fishKeys.forEach((name,i)=>{
-    const c=Choices[name];
-    const progSpeed=progressFormula(c,ProgressRod).toFixed(2);
-    const fishBaseWeight=c[12]||0;
-    const rodMaxKG=(baseStats[4]||0)+(SelectedEnchantStats[4]||0);
-    const uncatchable=rodMaxKG<fishBaseWeight || weightPercents[i] === 0;
+  fishKeys.forEach((name, i) => {
+    const c = Choices[name];
+    const progSpeed = progressFormula(c, ProgressRod).toFixed(2);
+    const fishBaseWeight = c[12] || 0;
+    const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
 
-    html+=`<tr${uncatchable?' class="uncatchable"':''}>
+    const uncatchable = rodMaxKG < fishBaseWeight || (lastDynWeights[i] || 0) === 0;
+    const percent = totalWeight > 0 ? formatPercent((lastDynWeights[i] / totalWeight) * 100) : "0%";
+
+    html += `<tr${uncatchable ? ' class="uncatchable"' : ''}>
       <td>${name}</td>
       <td>${c[10]}</td>
       <td>${c[7]}</td>
@@ -439,21 +443,23 @@ function runSimulation() {
       <td>${c[1]}</td>
       <td>${c[2]}</td>
       <td>${fishBaseWeight}</td>
-      <td>${formatPercent(weightPercents[i])}</td>
+      <td>${percent}</td>
       <td>${c[0]}</td>
       <td>${c[4]}</td>
     </tr>`;
   });
 
-  html+=`</tbody></table>
+  html += `</tbody></table>
     <p><b>Total XP Gained:</b> ${totalXP}</p>
     <p><b>Total Money Earned:</b> C$${totalMoney.toFixed(2)}</p>`;
 
-  document.getElementById("results").innerHTML=html;
+  document.getElementById("results").innerHTML = html;
+
 }
 </script>
 </body>
 </html>
+
 
 
 
