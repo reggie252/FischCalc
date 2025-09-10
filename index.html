@@ -395,6 +395,12 @@ function pickAnEvent() {
     totalXP+=(c[2]||0)*count;
     totalMoney+=(c[1]||0)*count;
   });
+  
+  function formatPercent(value) {
+      if (value >= 0.001) return parseFloat(value.toFixed(3)) + "%"; // rounds to 3 decimals
+      if (value >= 0.000001) return parseFloat(value.toFixed(6)) + "%"; // tiny values keep 6 decimals
+      return parseFloat(value.toFixed(8)) + "%"; // extremely small values
+  }
 
   let html=`<table>
     <thead>
@@ -421,7 +427,7 @@ function pickAnEvent() {
         <td>${c[1]}</td>
         <td>${c[2]}</td>
         <td>${fishBaseWeight}</td>
-        <td>${parseFloat(weightPercents[i].toFixed(3))}%</td>
+        <td>${formatPercent(weightPercents[i])}</td>
         <td>${c[0]}</td>
         <td>${picks[i]}</td>
       </tr>`;
@@ -438,4 +444,5 @@ function pickAnEvent() {
 </script>
 </body>
 </html>
+
 
