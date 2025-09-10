@@ -18,12 +18,7 @@
 <h1>🎣 Fishing Simulator</h1>
 
 <div class="card">
-  <p><b>Step 1:</b> Load your JSON files:</p>
-  <label>fish_data.json: <input type="file" id="fishDataInput" accept=".json"/></label><br/>
-  <label>fish_master_table.json: <input type="file" id="fishMasterInput" accept=".json"/></label><br/>
-  <label>rod_master_table.json: <input type="file" id="rodMasterInput" accept=".json"/></label><br/>
-  <label>enchantments.json: <input type="file" id="enchantmentsInput" accept=".json"/></label><br/>
-  <label>bait.table.json: <input type="file" id="baitInput" accept=".json"/></label><br/>
+  <p><b>Step 1:</b> Load data from GitHub:</p>
   <button onclick="loadFiles()">Load Files</button>
 </div>
 
@@ -89,29 +84,24 @@ let Enchantments = {};
 let BaitData = {};
 let SelectedEnchantStats = [0,0,0,0,0,0];
 
-// ---------- Load JSON files ----------
-function readJsonFile(inputElement) {
-  return new Promise((resolve, reject) => {
-    const file = inputElement.files[0];
-    if (!file) { reject("No file chosen"); return; }
-    const reader = new FileReader();
-    reader.onload = e => {
-      try { resolve(JSON.parse(e.target.result)); } 
-      catch { reject("Invalid JSON in " + file.name); }
-    };
-    reader.onerror = () => reject("Error reading " + file.name);
-    reader.readAsText(file);
-  });
+// ---------- Fetch JSON from GitHub ----------
+async function fetchJson(path) {
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(`Failed to load ${path}`);
+  return await res.json();
 }
 
 async function loadFiles() {
   try {
-    Areas = await readJsonFile(document.getElementById("fishDataInput"));
-    FishStats = await readJsonFile(document.getElementById("fishMasterInput"));
-    Rods = await readJsonFile(document.getElementById("rodMasterInput"));
-    Enchantments = await readJsonFile(document.getElementById("enchantmentsInput"));
-    BaitData = await readJsonFile(document.getElementById("baitInput"));
-    if (typeof BaitData !== 'object') BaitData = {};
+    // ⚠️ Replace with your actual GitHub repo raw URL
+    // Example: https://raw.githubusercontent.com/your-username/your-repo/main/
+    const baseUrl = "https://raw.githubusercontent.com/reggie252/FischCalc/main/";
+
+    Areas        = await fetchJson(baseUrl + "fish_data.json");
+    FishStats    = await fetchJson(baseUrl + "fish_master_table.json");
+    Rods         = await fetchJson(baseUrl + "rod_master_table.json");
+    Enchantments = await fetchJson(baseUrl + "enchantments.json");
+    BaitData     = await fetchJson(baseUrl + "bait.table.json");
 
     // --- Add "Enchant Relic" and "Exalted Relic" to each sub-location ---
     for (const mainArea in Areas) {
@@ -125,13 +115,12 @@ async function loadFiles() {
       }
     }
 
-
     populateSelectors();
     populateEnchantments();
     populateBaits();
     updateStatsDisplay();
     document.getElementById("simControls").style.display = "block";
-    alert("✅ All files loaded!");
+    alert("✅ All files loaded from GitHub!");
   } catch (err) {
     console.error(err);
     alert("Error loading files: " + err);
@@ -168,7 +157,6 @@ function populateSelectors() {
   populateSubLocations();
 }
 
-// ---------- Populate sub-locations ----------
 function populateSubLocations() {
   const mainAreaSelect = document.getElementById("mainAreaSelect");
   const subLocationSelect = document.getElementById("subLocationSelect");
@@ -185,7 +173,6 @@ function populateSubLocations() {
   });
 }
 
-// ---------- Populate Enchantments ----------
 function populateEnchantments() {
   const enchantSelect = document.getElementById("enchantSelect");
   enchantSelect.innerHTML = "";
@@ -198,12 +185,10 @@ function populateEnchantments() {
   enchantSelect.value = Object.keys(Enchantments)[0] || "";
 }
 
-// ---------- Populate Baits ----------
 function populateBaits() {
   const baitSelect = document.getElementById("baitSelect");
   baitSelect.innerHTML = "";
 
-  // Flatten all baits from categories
   let allBaits = [];
   Object.values(BaitData).forEach(category => {
     allBaits.push(...Object.keys(category));
@@ -221,10 +206,8 @@ function populateBaits() {
   updateBaitStatsDisplay();
 }
 
-// ---------- Update bait stats display ----------
 function updateBaitStatsDisplay() {
   const BaitCurrent = document.getElementById("baitSelect").value;
-
   const allBaits = Object.values(BaitData).reduce((acc, cat) => ({...acc, ...cat}), {});
   const selectedBaitStats = allBaits[BaitCurrent] || [0,0,0,0];
   const PreferredLuck = selectedBaitStats[0] ?? 0;
@@ -234,13 +217,11 @@ function updateBaitStatsDisplay() {
     `Bait Stats — Preferred Luck: ${PreferredLuck} | Universal Luck: ${UniversalLuck}`;
 }
 
-// ---------- Called when main area changes ----------
 function onMainAreaChange() {
   populateSubLocations();
   populateBaits();
 }
 
-// ---------- Update rod stats display ----------
 function updateStatsDisplay() {
   const rod = document.getElementById("rodSelect").value;
   const enchant = document.getElementById("enchantSelect").value;
@@ -268,17 +249,13 @@ function progressFormula(params, ProgressRod) {
   return 1.2 + 6.8/(1+p/100);
 }
 function matchesCondition(current, fishValue) {
-  if (!fishValue || fishValue === "None") return true; // means no restriction
-  const options = fishValue.split(",").map(s => s.trim()); // ["Spring","Autumn"]
+  if (!fishValue || fishValue === "None") return true;
+  const options = fishValue.split(",").map(s => s.trim());
   return options.includes(current);
 }
 
-
-// ---------- Chance function using bait stats ----------
 function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, BaitFish, WeatherFish, Yes, LuckRod, Rod, TimeCurrent, SeasonCurrent, WeatherCurrent) {
   const BaitCurrent = document.getElementById("baitSelect").value;
-
-  // Flatten bait JSON
   const allBaits = Object.values(BaitData).reduce((acc, cat) => ({...acc, ...cat}), {});
   const selectedBaitStats = allBaits[BaitCurrent] || [0,0,0,0];
   const PreferredLuck = selectedBaitStats[0] ?? 0;
@@ -321,7 +298,6 @@ function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, B
   return Chance1;
 }
 
-// ---------- Run simulation ----------
 function runSimulation() {
   const main=document.getElementById("mainAreaSelect").value;
   const sub=document.getElementById("subLocationSelect").value;
@@ -351,33 +327,24 @@ function runSimulation() {
   let lastDynWeights=[];
 
   function pickAnEvent() {
-    const currentArea = main; // selected main area
+    const currentArea = main;
 
-    // Calculate normal weights for all fish
     let dynWeights = fishKeys.map(name => {
       const c = Choices[name];
-
-      if (name === "Enchant Relic" && currentArea !== "The Depths") return 0; // forced later
-      if (name === "Exalted Relic") return 0; // forced later
-
-      // For The Depths, Enchant Relic uses normal Chance
+      if (name === "Enchant Relic" && currentArea !== "The Depths") return 0;
+      if (name === "Exalted Relic") return 0;
       return Chance(c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11], LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent);
     });
 
-    // Sum of normal fish weights
     const normalTotal = dynWeights.reduce((a,b)=>a+b,0);
-
-    // Forced relic percentages (only where applicable)
     const relicPercentages = {};
     if (currentArea !== "The Depths") relicPercentages["Enchant Relic"] = 0.28;
     relicPercentages["Exalted Relic"] = 0.05;
 
-    // Scale normal fish weights to sum to remaining probability
     const remainingPercent = 100 - Object.values(relicPercentages).reduce((a,b)=>a+b,0);
     const scale = normalTotal / remainingPercent;
     dynWeights = dynWeights.map(w => w / scale);
 
-    // Add forced relic weights
     fishKeys.forEach((name,i) => {
       if (relicPercentages[name] !== undefined) dynWeights[i] = relicPercentages[name];
     });
