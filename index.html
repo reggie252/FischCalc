@@ -101,7 +101,7 @@ async function loadFiles() {
     FishStats    = await fetchJson(baseUrl + "fish_master_table.json");
     Rods         = await fetchJson(baseUrl + "rod_master_table.json");
     Enchantments = await fetchJson(baseUrl + "enchantments.json");
-    BaitData     = await fetchJson(baseUrl + "bait.table.json");
+    BaitData     = await fetchJson(baseUrl + "bait_table.json");
 
     // --- Add "Enchant Relic" and "Exalted Relic" to each sub-location ---
     for (const mainArea in Areas) {
@@ -410,3 +410,4 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
