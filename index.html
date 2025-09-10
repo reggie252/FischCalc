@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Fishing Simulator</title>
-<style>
-body { font-family: sans-serif; margin: 2rem; background: #f9fafb; color: #111; }
-h1 { font-size: 1.8rem; margin-bottom: 1rem; }
-select, input, button { padding: 0.5rem; margin: 0.2rem; }
-table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
-th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
-th { background: #eee; }
-.card { background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-.uncatchable { color: red; font-weight: bold; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fishing Simulator</title>
+  <style>
+    body { font-family: sans-serif; margin: 2rem; background: #f9fafb; color: #111; }
+    h1 { font-size: 1.8rem; margin-bottom: 1rem; }
+    select, input, button { padding: 0.5rem; margin: 0.2rem; }
+    table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+    th { background: #eee; }
+    .card { background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .uncatchable { color: red; font-weight: bold; }
+  </style>
 </head>
 <body>
 <h1>🎣 Fishing Simulator</h1>
@@ -89,16 +89,21 @@ async function fetchJson(path) {
 async function loadFiles() {
   try {
     const baseUrl = "https://raw.githubusercontent.com/reggie252/FischCalc/main/";
-    Areas = await fetchJson(baseUrl + "fish_data.json");
-    FishStats = await fetchJson(baseUrl + "fish_master_table.json");
-    Rods = await fetchJson(baseUrl + "rod_master_table.json");
+
+    Areas        = await fetchJson(baseUrl + "fish_data.json");
+    FishStats    = await fetchJson(baseUrl + "fish_master_table.json");
+    Rods         = await fetchJson(baseUrl + "rod_master_table.json");
     Enchantments = await fetchJson(baseUrl + "enchantments.json");
-    BaitData = await fetchJson(baseUrl + "bait_table.json");
+    BaitData     = await fetchJson(baseUrl + "bait_table.json"); // ✅ fixed filename
 
     for (const mainArea in Areas) {
       for (const subLoc in Areas[mainArea]) {
-        if (!Areas[mainArea][subLoc].includes("Enchant Relic")) Areas[mainArea][subLoc].push("Enchant Relic");
-        if (!Areas[mainArea][subLoc].includes("Exalted Relic")) Areas[mainArea][subLoc].push("Exalted Relic");
+        if (!Areas[mainArea][subLoc].includes("Enchant Relic")) {
+          Areas[mainArea][subLoc].push("Enchant Relic");
+        }
+        if (!Areas[mainArea][subLoc].includes("Exalted Relic")) {
+          Areas[mainArea][subLoc].push("Exalted Relic");
+        }
       }
     }
 
@@ -107,6 +112,7 @@ async function loadFiles() {
     populateBaits();
     updateStatsDisplay();
     document.getElementById("simControls").style.display = "block";
+    console.log("✅ All files loaded from GitHub!");
   } catch (err) {
     console.error(err);
     alert("Error loading files: " + err);
@@ -119,6 +125,7 @@ function populateSelectors() {
   const mainAreaSelect = document.getElementById("mainAreaSelect");
   const subLocationSelect = document.getElementById("subLocationSelect");
   const rodSelect = document.getElementById("rodSelect");
+
   mainAreaSelect.innerHTML = "";
   subLocationSelect.innerHTML = "";
   rodSelect.innerHTML = "";
@@ -147,8 +154,10 @@ function populateSubLocations() {
   const mainAreaSelect = document.getElementById("mainAreaSelect");
   const subLocationSelect = document.getElementById("subLocationSelect");
   const selectedMain = mainAreaSelect.value;
+
   subLocationSelect.innerHTML = "";
   if (!Areas[selectedMain]) return;
+
   Object.keys(Areas[selectedMain]).forEach(subLoc => {
     const opt = document.createElement("option");
     opt.value = subLoc;
@@ -172,15 +181,21 @@ function populateEnchantments() {
 function populateBaits() {
   const baitSelect = document.getElementById("baitSelect");
   baitSelect.innerHTML = "";
+
   let allBaits = [];
-  Object.values(BaitData).forEach(category => allBaits.push(...Object.keys(category)));
+  Object.values(BaitData).forEach(category => {
+    allBaits.push(...Object.keys(category));
+  });
+
   allBaits.forEach(b => {
     const opt = document.createElement("option");
     opt.value = b;
     opt.textContent = b;
     baitSelect.appendChild(opt);
   });
+
   if (allBaits.length > 0) baitSelect.value = allBaits[0];
+
   updateBaitStatsDisplay();
 }
 
@@ -188,8 +203,11 @@ function updateBaitStatsDisplay() {
   const BaitCurrent = document.getElementById("baitSelect").value;
   const allBaits = Object.values(BaitData).reduce((acc, cat) => ({...acc, ...cat}), {});
   const selectedBaitStats = allBaits[BaitCurrent] || [0,0,0,0];
+  const PreferredLuck = selectedBaitStats[0] ?? 0;
+  const UniversalLuck = selectedBaitStats[1] ?? 0;
+
   document.getElementById("baitStats").textContent = 
-    `Bait Stats — Preferred Luck: ${selectedBaitStats[0] ?? 0} | Universal Luck: ${selectedBaitStats[1] ?? 0}`;
+    `Bait Stats — Preferred Luck: ${PreferredLuck} | Universal Luck: ${UniversalLuck}`;
 }
 
 function onMainAreaChange() {
@@ -203,12 +221,13 @@ function updateStatsDisplay() {
   const base = Rods[rod] || [0,0,0,0,0,0];
   const enchantStats = Enchantments[enchant] || [0,0,0,0,0,0];
   SelectedEnchantStats = enchantStats;
+
   const combined = base.map((v,i) => i===2 ? v : Math.round((v||0)+(enchantStats[i]||0)));
   const labels = ["Lure","Luck","Control","Resilience","Max KG","Progress Speed"];
   document.getElementById("rodStats").textContent = "Rod Stats: " + labels.map((l,i)=>`${l}: ${combined[i]}`).join(" | ");
 }
 
-// ---------- Helpers ----------
+// ---------- Simulation helpers ----------
 function randomChoiceWeighted(keys, weights) {
   const total = weights.reduce((a,b)=>a+b,0);
   if (total<=0) return keys[Math.floor(Math.random()*keys.length)];
@@ -216,71 +235,141 @@ function randomChoiceWeighted(keys, weights) {
   for(let i=0;i<keys.length;i++){if((r-=weights[i])<=0) return keys[i];}
   return keys[keys.length-1];
 }
-
 function progressFormula(params, ProgressRod) {
   const fish = Number(params[0] ?? 0);
   const test_speed = Number(params[11] ?? 0);
   const p = (test_speed===1) ? Math.trunc(fish) : Math.trunc((ProgressRod??0)+fish);
   return 1.2 + 6.8/(1+p/100);
 }
-
 function matchesCondition(current, fishValue) {
   if (!fishValue || fishValue === "None") return true;
   const options = fishValue.split(",").map(s => s.trim());
   return options.includes(current);
 }
-
 function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, BaitFish, WeatherFish, Yes, LuckRod, Rod, TimeCurrent, SeasonCurrent, WeatherCurrent) {
-  // simplified for clarity
-  return BaseChanceFish;
+  const BaitCurrent = document.getElementById("baitSelect").value;
+  const allBaits = Object.values(BaitData).reduce((acc, cat) => ({...acc, ...cat}), {});
+  const selectedBaitStats = allBaits[BaitCurrent] || [0,0,0,0];
+  const PreferredLuck = selectedBaitStats[0] ?? 0;
+  const UniversalLuck = selectedBaitStats[1] ?? 0;
+
+  let LuckSever=0, LuckEnchantment=0, LuckStacks=0, ChanceAbundance=0;
+  const EventCurrent="None", FishAbundance=null, TypeFish="1Crate", LocationCurrent="Ocean";
+
+  const LuckConditions = (WeatherCurrent==="Aurora Borealis")?7:1;
+  const BaitBoost = (Rod==="Resourceful Rod")?2:1;
+  const LuckBait = (BaitCurrent===BaitFish)?PreferredLuck*BaitBoost:UniversalLuck*BaitBoost;
+
+  let Luck=(LuckRod??0)+LuckBait+LuckEnchantment+(5*LuckStacks);
+  if(Luck<0){
+    const ratio=(-Luck)/(BaseChanceFish);
+    Luck=(LuckConditions+LuckSever)*(-Math.log(ratio));
+  }else{
+    const ratio=Luck/(BaseChanceFish);
+    Luck=(LuckConditions+LuckSever)*(Math.log(ratio));
+  }
+  if(Luck<0) Luck=0;
+
+  const rarityIsHigh=(typeof RarityFish==="number")?(RarityFish>=5):false;
+  const rarityIsLow=(typeof RarityFish==="number")?(RarityFish<=1):false;
+  const baseLow=(BaseChanceFish<=40);
+  const LuckFactor=(rarityIsHigh||(!rarityIsLow&&baseLow))?Luck:-20*Luck;
+  const MagnetFactor=(Rod==="Magnet Rod" && TypeFish==="Crate")?10000:0;
+  const Cap=200+ChanceAbundance+MagnetFactor;
+  const TimeMultiplier = (matchesCondition(TimeCurrent, TimeFish) || Rod === "Nocturnal Rod")?1:0.1;
+  const WeatherFactor = matchesCondition(WeatherCurrent, WeatherFish) ?(BaseChanceFish * 0.35):0;
+  const SeasonFactor = matchesCondition(SeasonCurrent, SeasonFish)?(BaseChanceFish*0.25):(BaseChanceFish*-0.15);
+  const SeasonMultiplier = (matchesCondition(SeasonCurrent, SeasonFish) && Rod === "Seasons Rod") ? 1.2:1;
+  const AbundanceMultiplier=(FishAbundance==="Fish"&&!ChanceAbundance)?1.7:1;
+  const AncientIsleMultiplier=(typeof RarityFish==="number"&&RarityFish===5 && LocationCurrent==="Ancient Isle")?0.5:1;
+  const LowRarityPenalty=(typeof RarityFish==="number"&&RarityFish<=2 && Luck>=200)?10:1;
+
+  const AdjustedChance=((((BaseChanceFish+SeasonFactor)*SeasonMultiplier+WeatherFactor+ChanceAbundance)*AbundanceMultiplier+MagnetFactor)*TimeMultiplier);
+  let Chance1=(((AdjustedChance+LuckFactor)/((HardPenalty)*LowRarityPenalty))*AncientIsleMultiplier);
+  Chance1=(Chance1<0)?0:(Chance1>=Cap?Cap:Chance1);
+  return Chance1;
 }
 
-// ---------- Simulation ----------
 function runSimulation() {
-  const main = document.getElementById("mainAreaSelect").value;
-  const sub = document.getElementById("subLocationSelect").value;
+  const main=document.getElementById("mainAreaSelect").value;
+  const sub=document.getElementById("subLocationSelect").value;
   if(!Areas[main]||!Areas[main][sub]){alert("Invalid area");return;}
+
   const fishList=Areas[main][sub];
   const rod=document.getElementById("rodSelect").value;
   const hours=parseFloat(document.getElementById("hoursInput").value)||0;
   const SeasonCurrent=document.getElementById("seasonSelect").value;
   const TimeCurrent=document.getElementById("timeSelect").value;
   const WeatherCurrent=document.getElementById("weatherSelect").value;
+
+  if(!Rods[rod]){alert("Invalid rod");return;}
+
   const baseStats=Rods[rod]||[];
   const LuckRod=(baseStats[1]||0)+(SelectedEnchantStats[1]||0);
   const ProgressRod=(baseStats[5]||0)+(SelectedEnchantStats[5]||0);
 
   const Choices={};
-  fishList.forEach(fish => { if(FishStats[fish]) Choices[fish] = [...FishStats[fish]]; if(Choices[fish]) Choices[fish][4]=0; });
+  fishList.forEach(fish=>{if(FishStats[fish]) Choices[fish]=[...FishStats[fish]]; if(Choices[fish]) Choices[fish][4]=0;});
+
   const fishKeys=Object.keys(Choices);
   if(fishKeys.length===0){alert("No fish in this selection");return;}
 
-  let CurrentTime=0, EndTime=3600*hours, lastDynWeights=[];
+  let CurrentTime=0;
+  const EndTime=3600*hours;
+  let lastDynWeights=[];
 
-  function pickAnEvent() {
+function pickAnEvent() {
     const currentArea = main;
+
     let dynWeights = fishKeys.map(name => {
-      const c = Choices[name];
-      const fishBaseWeight = c[12] || 0;
-      const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
+        const c = Choices[name];
+        const fishBaseWeight = c[12] || 0;
+        const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
 
-      if (name==="Enchant Relic" && currentArea!=="The Depths") return 0;
-      if (rodMaxKG < fishBaseWeight) return 0;
+        // Relic restrictions
+        if (name === "Enchant Relic" && currentArea !== "The Depths") return 0;
+        if (name === "Exalted Relic") return 0;
 
-      return Chance(c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11], LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent);
+        // If rod cannot handle fish weight, chance = 0
+        if (rodMaxKG < fishBaseWeight) return 0;
+
+        return Chance(
+            c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
+            LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
+        );
     });
 
+    // Prevent relics from getting picked if rod can't handle their "weight" (or area restrictions)
+    fishKeys.forEach((name, i) => {
+        const c = Choices[name];
+        const fishBaseWeight = c[12] || 0;
+        const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
+        if (rodMaxKG < fishBaseWeight) dynWeights[i] = 0;
+        if ((name === "Enchant Relic" && currentArea !== "The Depths") || name === "Exalted Relic") dynWeights[i] = 0;
+    });
+
+    const normalTotal = dynWeights.reduce((a, b) => a + b, 0);
     const relicPercentages = {};
-    if(currentArea!=="The Depths") relicPercentages["Enchant Relic"]=0.28;
-    relicPercentages["Exalted Relic"]=0.05;
-    fishKeys.forEach((name,i) => { if(relicPercentages[name]!==undefined) dynWeights[i]=relicPercentages[name]; });
+    if (currentArea !== "The Depths") relicPercentages["Enchant Relic"] = 0.28;
+    relicPercentages["Exalted Relic"] = 0.05;
 
-    const sel = randomChoiceWeighted(fishKeys,dynWeights);
-    Choices[sel][4]=(Choices[sel][4]||0)+1;
+    const remainingPercent = 100 - Object.values(relicPercentages).reduce((a, b) => a + b, 0);
+    const scale = normalTotal / remainingPercent || 1;
+    dynWeights = dynWeights.map(w => w / scale);
 
+    // Apply relic percentages only if their dynWeight > 0
+    fishKeys.forEach((name, i) => {
+        if (relicPercentages[name] !== undefined && dynWeights[i] > 0) dynWeights[i] = relicPercentages[name];
+    });
+
+    const sel = randomChoiceWeighted(fishKeys, dynWeights);
+    Choices[sel][4] = (Choices[sel][4] || 0) + 1;
+
+    const T1 = progressFormula(Choices[sel], ProgressRod);
     lastDynWeights = dynWeights;
-    return progressFormula(Choices[sel],ProgressRod);
-  }
+    return T1;
+}
+
 
   while(CurrentTime<=EndTime){
     const nextDelta=pickAnEvent();
@@ -289,49 +378,88 @@ function runSimulation() {
   }
 
   const picks=fishKeys.map(name=>Choices[name][4]||0);
+  const totalWeights=lastDynWeights.reduce((a,b)=>a+b,0);
 
-  const weightPercents = fishKeys.map((name,i)=>{
-    const totalWeights=lastDynWeights.reduce((a,b)=>a+b,0);
-    return totalWeights ? (100*lastDynWeights[i]/totalWeights) : 0;
+  const weightPercents = fishKeys.map((name, i) => {
+    const c = Choices[name];
+    const fishBaseWeight = c[12] || 0;
+    const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
+
+    if (name === "Enchant Relic" && main !== "The Depths") return 0
+    if (rodMaxKG < fishBaseWeight) return 0; // chance % = 0 if too heavy
+    const totalWeights = LastDynWeights.reduce((a,b)=>a+b,0);
+    return totalWeights ? (100 * lastDynWeights[i] / totalWeights) : 0;
   });
 
+  let totalXP=0, totalMoney=0;
+  fishKeys.forEach(name=>{
+    const c=Choices[name];
+    const count=c[4]||0;
+    totalXP+=(c[2]||0)*count;
+    totalMoney+=(c[1]||0)*count;
+  });
+
+  let html=`<table>
+    <thead>
+      <tr>
+        <th>Name</th><th>Weather</th><th>Time</th><th>Season</th><th>Bait</th>
+        <th>C$</th><th>XP</th><th>KG</th><th>Chance %</th><th>Progress Speed</th><th>Count</th>
+      </tr>
+    </thead>
+    <tbody>`;
+  
   function formatChance(chance) {
-    if(chance===0) return "0%";
-    let str=chance.toString();
-    if(!str.includes(".")) return str+"%";
-    let [intPart, decPart]=str.split(".");
-    let cutoff=3 + (decPart.match(/^0*/)[0].length);
-    return intPart+"."+decPart.slice(0,cutoff)+"%";
+      if (chance === 0) return { value: "0%", isZero: true };
+  
+      let str = chance.toString();
+  
+      if (!str.includes(".")) return { value: str + "%", isZero: false };
+  
+      let [intPart, decPart] = str.split(".");
+      let cutoff = 3; // start with 3 digits after decimal
+  
+      // Increase cutoff if leading decimals are zeros
+      let leadingZeros = decPart.match(/^0*/)[0].length;
+      cutoff += leadingZeros;
+  
+      let formatted = intPart + "." + decPart.slice(0, cutoff);
+      return { value: formatted + "%", isZero: false };
   }
 
-  let html=`<table><thead><tr>
-    <th>Name</th><th>Weather</th><th>Time</th><th>Season</th><th>Bait</th>
-    <th>C$</th><th>XP</th><th>KG</th><th>Chance %</th><th>Progress Speed</th><th>Count</th>
-  </tr></thead><tbody>`;
-
+  
+  // Then, inside your fishKeys.forEach table generation:
+  
   fishKeys.forEach((name,i)=>{
-    const c=Choices[name];
-    const progSpeed=progressFormula(c,ProgressRod).toFixed(2);
-    const fishBaseWeight=c[12]||0;
-    const rodMaxKG=(baseStats[4]||0)+(SelectedEnchantStats[4]||0);
-    const uncatchable = rodMaxKG<fishBaseWeight;
-
-    html+=`<tr${uncatchable?' class="uncatchable"':''}>
-      <td>${name}</td>
-      <td>${c[10]}</td>
-      <td>${c[7]}</td>
-      <td>${c[8]}</td>
-      <td>${c[9]}</td>
-      <td>${c[1]}</td>
-      <td>${c[2]}</td>
-      <td>${fishBaseWeight}</td>
-      <td>${formatChance(weightPercents[i])}</td>
-      <td>${progSpeed}</td>
-      <td>${picks[i]}</td>
-    </tr>`;
+      const c=Choices[name];
+      const progSpeed=progressFormula(c,ProgressRod).toFixed(2);
+      const fishBaseWeight = c[12] || 0;
+      const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
+      const uncatchable = rodMaxKG < fishBaseWeight;
+  
+      // Format chance %
+      const chanceData = formatChance(weightPercents[i]);
+      const chanceStyle = chanceData.isZero ? ' style="color:red;font-weight:bold;"' : '';
+  
+      html+=`<tr${uncatchable?' class="uncatchable"':''}>
+        <td>${name}</td>
+        <td>${c[10]}</td>
+        <td>${c[7]}</td>
+        <td>${c[8]}</td>
+        <td>${c[9]}</td>
+        <td>${c[1]}</td>
+        <td>${c[2]}</td>
+        <td>${fishBaseWeight}</td>
+        <td${chanceStyle}>${chanceData.value}</td>
+        <td>${c[0]}</td>
+        <td>${picks[i]}</td>
+      </tr>`;
   });
+  
+  html+=`</tbody></table>
+    <p><b>Total XP Gained:</b> ${totalXP}</p>
+    <p><b>Total Money Earned:</b> C$${totalMoney.toFixed(2)}</p>`;
 
-  html+="</tbody></table>";
+
   document.getElementById("results").innerHTML=html;
 }
 </script>
