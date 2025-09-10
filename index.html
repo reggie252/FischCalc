@@ -407,16 +407,22 @@ function pickAnEvent() {
   
   function formatChance(chance) {
       if (chance === 0) return { value: "0%", isZero: true };
-      // Convert to string with up to 12 significant digits
-      let str = chance.toPrecision(12);
-      let num = parseFloat(str); // removes unnecessary trailing zeros
-      // Limit decimal places to 6
-      let decIndex = num.toString().indexOf(".");
-      if (decIndex >= 0 && num.toString().length - decIndex - 1 > 6) {
-          num = parseFloat(num.toFixed(6));
-      }
-      return { value: num.toString() + "%", isZero: false };
+  
+      let str = chance.toString();
+  
+      if (!str.includes(".")) return { value: str + "%", isZero: false };
+  
+      let [intPart, decPart] = str.split(".");
+      let cutoff = 3; // start with 3 digits after decimal
+  
+      // Increase cutoff if leading decimals are zeros
+      let leadingZeros = decPart.match(/^0*/)[0].length;
+      cutoff += leadingZeros;
+  
+      let formatted = intPart + "." + decPart.slice(0, cutoff);
+      return { value: formatted + "%", isZero: false };
   }
+
   
   // Then, inside your fishKeys.forEach table generation:
   
@@ -456,6 +462,7 @@ function pickAnEvent() {
 </script>
 </body>
 </html>
+
 
 
 
