@@ -365,7 +365,7 @@ function runSimulation() {
       });
   
       // Save final dynWeights for table display
-      lastDynWeightsFinal = dynWeights.slice();
+      lastDynWeights = dynWeights.slice();
   
       // Pick a fish based on weighted chance
       const sel = randomChoiceWeighted(fishKeys, dynWeights);
@@ -388,8 +388,8 @@ function runSimulation() {
       const fishBaseWeight = c[12] || 0;
       const rodMaxKG = (baseStats[4]||0)+(SelectedEnchantStats[4]||0);
       if(rodMaxKG < fishBaseWeight) return 0;
-      const total = lastDynWeightsFinal.reduce((a,b)=>a+b,0);
-      return total ? (100*lastDynWeightsFinal[i]/total) : 0;
+      const total = lastDynWeights.reduce((a,b)=>a+b,0);
+      return total ? (100*lastDynWeights[i]/total) : 0;
   });
 
 
@@ -447,6 +447,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
