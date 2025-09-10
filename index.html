@@ -245,7 +245,7 @@ function matchesCondition(current, fishValue) {
   const options = fishValue.split(",").map(s => s.trim());
   return options.includes(current);
 }
-function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, BaitFish, WeatherFish, Yes, LuckRod, Rod, TimeCurrent, SeasonCurrent, WeatherCurrent) {
+function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, BaitFish, WeatherFish, Yes, LuckRod, Rod, TimeCurrent, SeasonCurrent, WeatherCurrent,TypeFish) {
   const BaitCurrent = document.getElementById("baitSelect").value;
   const allBaits = Object.values(BaitData).reduce((acc, cat) => ({...acc, ...cat}), {});
   const selectedBaitStats = allBaits[BaitCurrent] || [0,0,0,0];
@@ -253,7 +253,7 @@ function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, B
   const UniversalLuck = selectedBaitStats[1] ?? 0;
 
   let LuckSever=0, LuckEnchantment=0, LuckStacks=0, ChanceAbundance=0;
-  const EventCurrent="None", FishAbundance=null, TypeFish="1Crate", LocationCurrent="Ocean";
+  const EventCurrent="None", FishAbundance=null, LocationCurrent="Ocean";
 
   const LuckConditions = (WeatherCurrent==="Aurora Borealis")?7:1;
   const BaitBoost = (Rod==="Resourceful Rod")?2:1;
@@ -273,7 +273,7 @@ function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, B
   const rarityIsLow=(typeof RarityFish==="number")?(RarityFish<=1):false;
   const baseLow=(BaseChanceFish<=40);
   const LuckFactor=(rarityIsHigh||(!rarityIsLow&&baseLow))?Luck:-20*Luck;
-  const MagnetFactor=(Rod==="Magnet Rod" && TypeFishCurrent==="Crate")?10000:0;
+  const MagnetFactor=(Rod==="Magnet Rod" && TypeFish==="Crate")?10000:0;
   const Cap=200+ChanceAbundance+MagnetFactor;
   const TimeMultiplier = (matchesCondition(TimeCurrent, TimeFish) || Rod === "Nocturnal Rod")?1:0.1;
   const WeatherFactor = matchesCondition(WeatherCurrent, WeatherFish) ?(BaseChanceFish * 0.35):0;
@@ -447,6 +447,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
