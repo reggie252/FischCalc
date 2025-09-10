@@ -355,20 +355,26 @@ function runSimulation() {
       const scale = normalTotal / remainingPercent || 1;
       dynWeights = dynWeights.map(w => w / scale);
   
-      // Apply relic percentages if dynWeight > 0
-      fishKeys.forEach((name,i) => {
-          if (relicPercentages[name] !== undefined && dynWeights[i] > 0) {
-              dynWeights[i] = relicPercentages[name];
+      // Apply relic percentages if rod qualifies
+      dynWeights = dynWeights.map((w, i) => {
+          const name = fishKeys[i];
+          if (relicPercentages[name] !== undefined && w > 0) {
+              return relicPercentages[name];
           }
+          return w;
       });
+  
+      // Save final dynWeights for table display
+      lastDynWeightsFinal = dynWeights.slice();
   
       // Pick a fish based on weighted chance
       const sel = randomChoiceWeighted(fishKeys, dynWeights);
       Choices[sel][4] = (Choices[sel][4] || 0) + 1;
   
-      lastDynWeights = dynWeights;
+      // Return the progress speed for this fish
       return progressFormula(Choices[sel], ProgressRod);
   }
+
 
 
   while(CurrentTime<=EndTime){
@@ -378,13 +384,14 @@ function runSimulation() {
   }
 
   const weightPercents = fishKeys.map((name,i)=>{
-    const c=Choices[name];
-    const fishBaseWeight = c[12] || 0;
-    const rodMaxKG = (baseStats[4]||0)+(SelectedEnchantStats[4]||0);
-    if(rodMaxKG < fishBaseWeight) return 0;
-    const total = lastDynWeights.reduce((a,b)=>a+b,0);
-    return total ? (100*lastDynWeights[i]/total) : 0;
+      const c=Choices[name];
+      const fishBaseWeight = c[12] || 0;
+      const rodMaxKG = (baseStats[4]||0)+(SelectedEnchantStats[4]||0);
+      if(rodMaxKG < fishBaseWeight) return 0;
+      const total = lastDynWeightsFinal.reduce((a,b)=>a+b,0);
+      return total ? (100*lastDynWeightsFinal[i]/total) : 0;
   });
+
 
   let totalXP=0, totalMoney=0;
   fishKeys.forEach(name=>{
@@ -440,5 +447,6 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
