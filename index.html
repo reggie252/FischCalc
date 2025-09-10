@@ -273,7 +273,7 @@ function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, B
   const rarityIsLow=(typeof RarityFish==="number")?(RarityFish<=1):false;
   const baseLow=(BaseChanceFish<=40);
   const LuckFactor=(rarityIsHigh||(!rarityIsLow&&baseLow))?Luck:-20*Luck;
-  const MagnetFactor=(Rod==="Magnet Rod" && TypeFish==="Crate")?10000:0;
+  const MagnetFactor=(Rod==="Magnet Rod" && TypeFishCurrent==="Crate")?10000:0;
   const Cap=200+ChanceAbundance+MagnetFactor;
   const TimeMultiplier = (matchesCondition(TimeCurrent, TimeFish) || Rod === "Nocturnal Rod")?1:0.1;
   const WeatherFactor = matchesCondition(WeatherCurrent, WeatherFish) ?(BaseChanceFish * 0.35):0;
@@ -318,6 +318,7 @@ function runSimulation() {
   let lastDynWeights=[];
 
   function pickAnEvent() {
+      const TypeFishCurrent = c[6] || "Unknown";
       const currentArea = main;
       const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
   
@@ -335,10 +336,11 @@ function runSimulation() {
   
           // If rod cannot handle weight, chance = 0
           if (rodMaxKG < fishBaseWeight) return 0;
+        
   
           return Chance(
               c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
-              LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
+              LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent, TypeFishCurrent
           );
       });
   
@@ -445,6 +447,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
