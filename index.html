@@ -94,7 +94,7 @@ async function loadFiles() {
     FishStats    = await fetchJson(baseUrl + "fish_master_table.json");
     Rods         = await fetchJson(baseUrl + "rod_master_table.json");
     Enchantments = await fetchJson(baseUrl + "enchantments.json");
-    BaitData     = await fetchJson(baseUrl + "bait_table.json"); // ✅ fixed filename
+    BaitData     = await fetchJson(baseUrl + "bait_table.json");
 
     for (const mainArea in Areas) {
       for (const subLoc in Areas[mainArea]) {
@@ -318,20 +318,17 @@ function runSimulation() {
   const EndTime=3600*hours;
   let lastDynWeights=[];
 
-function pickAnEvent() {
+  function pickAnEvent() {
     const currentArea = main;
-
     let dynWeights = fishKeys.map(name => {
         const c = Choices[name];
         const fishBaseWeight = c[12] || 0;
         const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
 
-        // Relic restrictions
-        if (name === "Enchant Relic" && currentArea !== "The Depths") return 0;
-        if (name === "Exalted Relic") return 0;
-
-        // If rod cannot handle fish weight, chance = 0
-        if (rodMaxKG < fishBaseWeight) return 0;
+        // Only block relics if rod can't handle or area restriction
+        if ((name === "Enchant Relic" && currentArea !== "The Depths") ||
+            (name === "Exalted Relic") ||
+            rodMaxKG < fishBaseWeight) return 0;
 
         return Chance(
             c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
@@ -339,37 +336,26 @@ function pickAnEvent() {
         );
     });
 
-    // Prevent relics from getting picked if rod can't handle their "weight" (or area restrictions)
-    fishKeys.forEach((name, i) => {
-        const c = Choices[name];
-        const fishBaseWeight = c[12] || 0;
-        const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
-        if (rodMaxKG < fishBaseWeight) dynWeights[i] = 0;
-        if ((name === "Enchant Relic" && currentArea !== "The Depths") || name === "Exalted Relic") dynWeights[i] = 0;
-    });
-
-    const normalTotal = dynWeights.reduce((a, b) => a + b, 0);
+    const normalTotal = dynWeights.reduce((a,b)=>a+b,0);
     const relicPercentages = {};
-    if (currentArea !== "The Depths") relicPercentages["Enchant Relic"] = 0.28;
-    relicPercentages["Exalted Relic"] = 0.05;
+    if(currentArea!=="The Depths") relicPercentages["Enchant Relic"]=0.28;
+    relicPercentages["Exalted Relic"]=0.05;
 
-    const remainingPercent = 100 - Object.values(relicPercentages).reduce((a, b) => a + b, 0);
+    const remainingPercent = 100 - Object.values(relicPercentages).reduce((a,b)=>a+b,0);
     const scale = normalTotal / remainingPercent || 1;
-    dynWeights = dynWeights.map(w => w / scale);
+    dynWeights = dynWeights.map(w => w/scale);
 
-    // Apply relic percentages only if their dynWeight > 0
-    fishKeys.forEach((name, i) => {
-        if (relicPercentages[name] !== undefined && dynWeights[i] > 0) dynWeights[i] = relicPercentages[name];
+    // Apply relic percentages only if dynWeight > 0
+    fishKeys.forEach((name,i)=>{
+        if(relicPercentages[name]!==undefined && dynWeights[i]>0) dynWeights[i]=relicPercentages[name];
     });
 
     const sel = randomChoiceWeighted(fishKeys, dynWeights);
-    Choices[sel][4] = (Choices[sel][4] || 0) + 1;
+    Choices[sel][4] = (Choices[sel][4]||0) + 1;
 
-    const T1 = progressFormula(Choices[sel], ProgressRod);
     lastDynWeights = dynWeights;
-    return T1;
-}
-
+    return progressFormula(Choices[sel], ProgressRod);
+  }
 
   while(CurrentTime<=EndTime){
     const nextDelta=pickAnEvent();
@@ -377,29 +363,27 @@ function pickAnEvent() {
     if(!isFinite(CurrentTime)||nextDelta<=0) break;
   }
 
-  const picks=fishKeys.map(name=>Choices[name][4]||0);
-  const totalWeights=lastDynWeights.reduce((a,b)=>a+b,0);
-
-  const weightPercents = fishKeys.map((name, i) => {
-    const c = Choices[name];
+  const weightPercents = fishKeys.map((name,i)=>{
+    const c=Choices[name];
     const fishBaseWeight = c[12] || 0;
-    const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
-    if (rodMaxKG < fishBaseWeight) return 0; // chance % = 0 if too heavy
-    return totalWeights ? (100 * lastDynWeights[i] / totalWeights) : 0;
+    const rodMaxKG = (baseStats[4]||0)+(SelectedEnchantStats[4]||0);
+    if(rodMaxKG < fishBaseWeight) return 0;
+    const total = lastDynWeights.reduce((a,b)=>a+b,0);
+    return total ? (100*lastDynWeights[i]/total) : 0;
   });
 
   let totalXP=0, totalMoney=0;
   fishKeys.forEach(name=>{
     const c=Choices[name];
     const count=c[4]||0;
-    totalXP+=(c[2]||0)*count;
-    totalMoney+=(c[1]||0)*count;
+    totalXP += (c[2]||0)*count;
+    totalMoney += (c[1]||0)*count;
   });
-  
-  function formatPercent(value) {
-      if (value >= 0.001) return parseFloat(value.toFixed(3)) + "%"; // rounds to 3 decimals
-      if (value >= 0.000001) return parseFloat(value.toFixed(6)) + "%"; // tiny values keep 6 decimals
-      return parseFloat(value.toFixed(8)) + "%"; // extremely small values
+
+  function formatPercent(value){
+    if(value>=0.001) return parseFloat(value.toFixed(3))+"%";
+    if(value>=0.000001) return parseFloat(value.toFixed(6))+"%";
+    return parseFloat(value.toFixed(8))+"%";
   }
 
   let html=`<table>
@@ -410,39 +394,36 @@ function pickAnEvent() {
       </tr>
     </thead>
     <tbody>`;
-  
+
   fishKeys.forEach((name,i)=>{
-      const c=Choices[name];
-      const progSpeed=progressFormula(c,ProgressRod).toFixed(2);
-      const fishBaseWeight = c[12] || 0;
-      const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
-      const uncatchable = rodMaxKG < fishBaseWeight;
-      
-      html+=`<tr${uncatchable?' class="uncatchable"':''}>
-        <td>${name}</td>
-        <td>${c[10]}</td>
-        <td>${c[7]}</td>
-        <td>${c[8]}</td>
-        <td>${c[9]}</td>
-        <td>${c[1]}</td>
-        <td>${c[2]}</td>
-        <td>${fishBaseWeight}</td>
-        <td>${formatPercent(weightPercents[i])}</td>
-        <td>${c[0]}</td>
-        <td>${picks[i]}</td>
-      </tr>`;
+    const c=Choices[name];
+    const progSpeed=progressFormula(c,ProgressRod).toFixed(2);
+    const fishBaseWeight=c[12]||0;
+    const rodMaxKG=(baseStats[4]||0)+(SelectedEnchantStats[4]||0);
+    const uncatchable=rodMaxKG<fishBaseWeight;
+
+    html+=`<tr${uncatchable?' class="uncatchable"':''}>
+      <td>${name}</td>
+      <td>${c[10]}</td>
+      <td>${c[7]}</td>
+      <td>${c[8]}</td>
+      <td>${c[9]}</td>
+      <td>${c[1]}</td>
+      <td>${c[2]}</td>
+      <td>${fishBaseWeight}</td>
+      <td>${formatPercent(weightPercents[i])}</td>
+      <td>${c[0]}</td>
+      <td>${c[4]}</td>
+    </tr>`;
   });
 
-  
   html+=`</tbody></table>
     <p><b>Total XP Gained:</b> ${totalXP}</p>
     <p><b>Total Money Earned:</b> C$${totalMoney.toFixed(2)}</p>`;
-
 
   document.getElementById("results").innerHTML=html;
 }
 </script>
 </body>
 </html>
-
 
