@@ -332,25 +332,9 @@ function runSimulation() {
           // Rod cannot handle the weight
           if (rodMaxKG < fishBaseWeight) return 0;
   
-          if (name === "Enchant Relic") {
-              if (currentArea === "The Depths") {
-                  // Use normal Chance() in The Depths
-                  return Chance(
-                      c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
-                      LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
-                  );
-              } else {
-                  // Will be set via relicPercentages later
-                  return 0;
-              }
-          }
-  
+
           if (name === "Exalted Relic") return 0; // handled later
   
-          // Normal fish
-          return Chance(
-              c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
-              LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
           );
       });
   
@@ -471,3 +455,4 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
