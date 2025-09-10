@@ -12,6 +12,7 @@
     th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
     th { background: #eee; }
     .card { background: white; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .uncatchable { color: red; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -118,10 +119,8 @@ async function loadFiles() {
   }
 }
 
-// Auto-load on page open
 window.onload = loadFiles;
 
-// ---------- Populate dropdowns ----------
 function populateSelectors() {
   const mainAreaSelect = document.getElementById("mainAreaSelect");
   const subLocationSelect = document.getElementById("subLocationSelect");
@@ -247,7 +246,6 @@ function matchesCondition(current, fishValue) {
   const options = fishValue.split(",").map(s => s.trim());
   return options.includes(current);
 }
-
 function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, BaitFish, WeatherFish, Yes, LuckRod, Rod, TimeCurrent, SeasonCurrent, WeatherCurrent) {
   const BaitCurrent = document.getElementById("baitSelect").value;
   const allBaits = Object.values(BaitData).reduce((acc, cat) => ({...acc, ...cat}), {});
@@ -323,26 +321,23 @@ function runSimulation() {
   function pickAnEvent() {
     const currentArea = main;
 
-   let dynWeights = fishKeys.map(name => {
-    const c = Choices[name];
+    let dynWeights = fishKeys.map(name => {
+      const c = Choices[name];
 
-    // Relic restrictions
-    if (name === "Enchant Relic" && currentArea !== "The Depths") return 0;
-    if (name === "Exalted Relic") return 0;
+      // Relic restrictions
+      if (name === "Enchant Relic" && currentArea !== "The Depths") return 0;
+      if (name === "Exalted Relic") return 0;
 
-    // Check if rod can handle the fish's base weight
-    const fishBaseWeight = c[12] || 0;           // index 12 = base weight
-    const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0); // rod max kg + enchant
-  
-    if (rodMaxKG < fishBaseWeight) return 0;     // cannot catch
-  
-    // Normal chance calculation
-    return Chance(
-      c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
-      LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
-    );
-  });
+      // Check rod max KG vs fish base weight
+      const fishBaseWeight = c[12] || 0;
+      const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
+      if (rodMaxKG < fishBaseWeight) return 0;
 
+      return Chance(
+        c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
+        LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
+      );
+    });
 
     const normalTotal = dynWeights.reduce((a,b)=>a+b,0);
     const relicPercentages = {};
@@ -373,7 +368,14 @@ function runSimulation() {
 
   const picks=fishKeys.map(name=>Choices[name][4]||0);
   const totalWeights=lastDynWeights.reduce((a,b)=>a+b,0);
-  const weightPercents=lastDynWeights.map(w=>totalWeights?(100*w/totalWeights):0);
+
+  const weightPercents = fishKeys.map((name, i) => {
+    const c = Choices[name];
+    const fishBaseWeight = c[12] || 0;
+    const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
+    if (rodMaxKG < fishBaseWeight) return 0; // chance % = 0 if too heavy
+    return totalWeights ? (100 * lastDynWeights[i] / totalWeights) : 0;
+  });
 
   let totalXP=0, totalMoney=0;
   fishKeys.forEach(name=>{
@@ -395,7 +397,11 @@ function runSimulation() {
   fishKeys.forEach((name,i)=>{
     const c=Choices[name];
     const progSpeed=progressFormula(c,ProgressRod).toFixed(2);
-    html+=`<tr>
+    const fishBaseWeight = c[12] || 0;
+    const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
+    const uncatchable = rodMaxKG < fishBaseWeight;
+
+    html+=`<tr${uncatchable?' class="uncatchable"':''}>
       <td>${name}</td>
       <td>${c[10]}</td>
       <td>${c[7]}</td>
@@ -418,6 +424,4 @@ function runSimulation() {
 </script>
 </body>
 </html>
-
-
 
