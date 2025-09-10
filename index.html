@@ -326,10 +326,13 @@ function runSimulation() {
       const EnchantRelicChance = 0.28;
       const ExaltedRelicChance = 0.05;
   
-      // Calculate dynamic weights for all fish
+      // Calculate dynamic weights for normal fish (non-relics)
       let dynWeights = fishKeys.map(name => {
           const c = Choices[name];
           const fishBaseWeight = c[12] || 0;
+  
+          // Relics are handled separately
+          if (name === "Enchant Relic" || name === "Exalted Relic") return 0;
   
           // If rod cannot handle weight, chance = 0
           if (rodMaxKG < fishBaseWeight) return 0;
@@ -350,30 +353,26 @@ function runSimulation() {
       }
   
       // Scale normal fish weights so total is 100 minus relic percentages
-      const normalTotal = dynWeights.reduce((a,b)=>a+b,0);
-      const remainingPercent = 100 - Object.values(relicPercentages).reduce((a,b)=>a+b,0);
-      const scale = normalTotal / remainingPercent || 1;
-      dynWeights = dynWeights.map(w => w / scale);
+      const normalTotal = dynWeights.reduce((a, b) => a + b, 0);
+      const remainingPercent = 100 - Object.values(relicPercentages).reduce((a, b) => a + b, 0);
+      const scale = normalTotal > 0 ? remainingPercent / normalTotal : 1;
+      dynWeights = dynWeights.map(w => w * scale);
   
-      // Apply relic percentages if rod qualifies
-      dynWeights = dynWeights.map((w, i) => {
-          const name = fishKeys[i];
-          if (relicPercentages[name] !== undefined && w > 0) {
-              return relicPercentages[name];
+      // Combine normal weights + relic percentages
+      fishKeys.forEach((name, i) => {
+          if (relicPercentages[name] !== undefined) {
+              dynWeights[i] = relicPercentages[name];
           }
-          return w;
       });
-  
-      // Save final dynWeights for table display
-      lastDynWeights = dynWeights.slice();
   
       // Pick a fish based on weighted chance
       const sel = randomChoiceWeighted(fishKeys, dynWeights);
       Choices[sel][4] = (Choices[sel][4] || 0) + 1;
   
-      // Return the progress speed for this fish
+      lastDynWeights = dynWeights.slice(); // save final weights including relics
       return progressFormula(Choices[sel], ProgressRod);
   }
+
 
 
 
@@ -447,6 +446,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
