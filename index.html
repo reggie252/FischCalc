@@ -245,7 +245,7 @@ function matchesCondition(current, fishValue) {
   const options = fishValue.split(",").map(s => s.trim());
   return options.includes(current);
 }
-function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, BaitFish, WeatherFish, Yes, LuckRod, Rod, TimeCurrent, SeasonCurrent, WeatherCurrent,TypeFish) {
+function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, BaitFish, WeatherFish, Yes, LuckRod, Rod, TimeCurrent, SeasonCurrent, WeatherCurrent) {
   const BaitCurrent = document.getElementById("baitSelect").value;
   const allBaits = Object.values(BaitData).reduce((acc, cat) => ({...acc, ...cat}), {});
   const selectedBaitStats = allBaits[BaitCurrent] || [0,0,0,0];
@@ -253,7 +253,7 @@ function Chance(BaseChanceFish, RarityFish, HardPenalty, TimeFish, SeasonFish, B
   const UniversalLuck = selectedBaitStats[1] ?? 0;
 
   let LuckSever=0, LuckEnchantment=0, LuckStacks=0, ChanceAbundance=0;
-  const EventCurrent="None", FishAbundance=null, LocationCurrent="Ocean";
+  const EventCurrent="None", FishAbundance=null, TypeFish= "1Crate", LocationCurrent="Ocean";
 
   const LuckConditions = (WeatherCurrent==="Aurora Borealis")?7:1;
   const BaitBoost = (Rod==="Resourceful Rod")?2:1;
@@ -318,7 +318,7 @@ function runSimulation() {
   let lastDynWeights=[];
 
   function pickAnEvent() {
-      const TypeFishCurrent = c[6] || "Unknown";
+      
       const currentArea = main;
       const rodMaxKG = (baseStats[4] || 0) + (SelectedEnchantStats[4] || 0);
   
@@ -340,7 +340,7 @@ function runSimulation() {
   
           return Chance(
               c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
-              LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent, TypeFishCurrent
+              LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
           );
       });
   
@@ -447,6 +447,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
