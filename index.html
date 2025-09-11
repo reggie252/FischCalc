@@ -106,6 +106,25 @@ async function loadFiles() {
         }
       }
     }
+    // Add default stats for relics if not present in FishStats
+if (!FishStats["Enchant Relic"]) {
+  FishStats["Enchant Relic"] = [
+    2-,   // Progress Speed (placeholder)
+    12000,   // Money
+    2500,   // XP
+    0.2,  // Base Chance %
+    0,   // Count
+    5,   // Rarity (legendary)
+    1,   // Hard Penalty
+    "None", // Time
+    "None", // Season
+    "None", // Bait
+    "None", // Weather
+    0,   // Yes (unused?)
+    21  // KG requirement
+  ];
+}
+
 
     populateSelectors();
     populateEnchantments();
@@ -458,6 +477,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
