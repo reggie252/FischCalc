@@ -340,41 +340,41 @@ function runSimulation() {
               LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
           );
       });
-  
+
       // Assign relic percentages if rod qualifies (outside The Depths)
-      const relicPercentages = {};
-      if (rodMaxKG >= (Choices["Enchant Relic"]?.[12] || 0) && currentArea !== "The Depths") {
-          relicPercentages["Enchant Relic"] = EnchantRelicChance;
-      }
-      if (rodMaxKG >= (Choices["Exalted Relic"]?.[12] || 0)) {
-          relicPercentages["Exalted Relic"] = ExaltedRelicChance;
-      }
+     // const relicPercentages = {};
+     // if (rodMaxKG >= (Choices["Enchant Relic"]?.[12] || 0) && currentArea !== "The Depths") {
+     //     relicPercentages["Enchant Relic"] = EnchantRelicChance;
+     // }
+     // if (rodMaxKG >= (Choices["Exalted Relic"]?.[12] || 0)) {
+     //     relicPercentages["Exalted Relic"] = ExaltedRelicChance;
+     // }
   
       // Scale only normal fish weights to sum to remainingPercent
-      const relicTotal = Object.values(relicPercentages).reduce((a, b) => a + b, 0);
-      let normalTotal = 0;
-      dynWeights.forEach((w, i) => {
-          const name = fishKeys[i];
-          if (!(name === "Enchant Relic" && currentArea === "The Depths")) {
-              normalTotal += w;
-          }
-      });
-      const remainingPercent = 100 - relicTotal;
-      const scale = normalTotal > 0 ? remainingPercent / normalTotal : 1;
-      dynWeights = dynWeights.map((w, i) => {
-          const name = fishKeys[i];
-          if (!(name === "Enchant Relic" && currentArea === "The Depths")) {
-              return w * scale;
-          }
-          return w; // leave Enchant Relic as-is in The Depths
-      });
+      //const relicTotal = Object.values(relicPercentages).reduce((a, b) => a + b, 0);
+      //let normalTotal = 0;
+      //dynWeights.forEach((w, i) => {
+      //    const name = fishKeys[i];
+      //    if (!(name === "Enchant Relic" && currentArea === "The Depths")) {
+      //        normalTotal += w;
+      //    }
+     // });
+      //const remainingPercent = 100 - relicTotal;
+      //const scale = normalTotal > 0 ? remainingPercent / normalTotal : 1;
+      //dynWeights = dynWeights.map((w, i) => {
+      //    const name = fishKeys[i];
+      //    if (!(name === "Enchant Relic" && currentArea === "The Depths")) {
+      //        return w * scale;
+     //     }
+     //     return w; // leave Enchant Relic as-is in The Depths
+    //  });
   
       // Set force-set relic percentages for other areas
-      fishKeys.forEach((name, i) => {
-          if (relicPercentages[name] !== undefined) {
-              dynWeights[i] = relicPercentages[name];
-          }
-      });
+    //  fishKeys.forEach((name, i) => {
+     //     if (relicPercentages[name] !== undefined) {
+     //         dynWeights[i] = relicPercentages[name];
+      //    }
+      //});
   
       // Pick fish based on weighted chance
       const sel = randomChoiceWeighted(fishKeys, dynWeights);
@@ -458,5 +458,6 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
