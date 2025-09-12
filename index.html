@@ -316,6 +316,8 @@ function runSimulation() {
   let CurrentTime=0;
   const EndTime=3600*hours;
   let lastDynWeights=[];
+  let rawDynWeights = [];
+
 
   function pickAnEvent() {
       const currentArea = main;
@@ -392,7 +394,7 @@ function runSimulation() {
       // Pick fish based on weighted chance
       const sel = randomChoiceWeighted(fishKeys, dynWeights);
       Choices[sel][4] = (Choices[sel][4] || 0) + 1;
-  
+      rawDynWeights = dynWeights.slice();
       lastDynWeights = dynWeights.slice(); // save final weights including relics
       return progressFormula(Choices[sel], ProgressRod);
   }
@@ -457,7 +459,7 @@ function runSimulation() {
       <td>${c[2]}</td>
       <td>${fishBaseWeight}</td>
       <td>${formatPercent(weightPercents[i])}</td>
-      <td>${lastDynWeights[i].toFixed(3)}</td>
+      <td>${rawDynWeights[i].toFixed(3)}</td>
       <td>${c[0]}</td>
       <td>${c[4]}</td>
     </tr>`;
@@ -472,6 +474,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
