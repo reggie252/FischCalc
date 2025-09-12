@@ -107,8 +107,6 @@ async function loadFiles() {
       }
     }
 
-    console.log("Relic stats:", FishStats["Enchant Relic"], FishStats["Exalted Relic"]);
-
     populateSelectors();
     populateEnchantments();
     populateBaits();
@@ -333,16 +331,29 @@ function runSimulation() {
   
           // Rod cannot handle the weight
           if (rodMaxKG < fishBaseWeight) return 0;
-      
-
+  
+          if (name === "Enchant Relic") {
+              if (currentArea === "The Depths") {
+                  // Use normal Chance() in The Depths
+                  return Chance(
+                      c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
+                      LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
+                  );
+              } else {
+                  // Will be set via relicPercentages later
+                  return 0;
+              }
+          }
+  
           if (name === "Exalted Relic") return 0; // handled later
   
+          // Normal fish
           return Chance(
               c[3], c[5], c[6], c[7], c[8], c[9], c[10], c[11],
               LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
           );
       });
-    
+  
       // Assign relic percentages if rod qualifies (outside The Depths)
       const relicPercentages = {};
       if (rodMaxKG >= (Choices["Enchant Relic"]?.[12] || 0) && currentArea !== "The Depths") {
@@ -352,7 +363,7 @@ function runSimulation() {
           relicPercentages["Exalted Relic"] = ExaltedRelicChance;
       }
   
-       //Scale only normal fish weights to sum to remainingPercent
+      // Scale only normal fish weights to sum to remainingPercent
       const relicTotal = Object.values(relicPercentages).reduce((a, b) => a + b, 0);
       let normalTotal = 0;
       dynWeights.forEach((w, i) => {
@@ -371,7 +382,7 @@ function runSimulation() {
           return w; // leave Enchant Relic as-is in The Depths
       });
   
-       Set force-set relic percentages for other areas
+      // Set force-set relic percentages for other areas
       fishKeys.forEach((name, i) => {
           if (relicPercentages[name] !== undefined) {
               dynWeights[i] = relicPercentages[name];
@@ -379,7 +390,6 @@ function runSimulation() {
       });
   
       // Pick fish based on weighted chance
-      console.log("dynWeights:", dynWeights);
       const sel = randomChoiceWeighted(fishKeys, dynWeights);
       Choices[sel][4] = (Choices[sel][4] || 0) + 1;
   
@@ -461,18 +471,3 @@ function runSimulation() {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
