@@ -96,16 +96,16 @@ async function loadFiles() {
     Enchantments = await fetchJson(baseUrl + "enchantments.json");
     BaitData     = await fetchJson(baseUrl + "bait_table.json");
 
-    //for (const mainArea in Areas) {
-     // for (const subLoc in Areas[mainArea]) {
-     //   if (!Areas[mainArea][subLoc].includes("Enchant Relic")) {
-     //     Areas[mainArea][subLoc].push("Enchant Relic");
-     //   }
-      //  if (!Areas[mainArea][subLoc].includes("Exalted Relic")) {
-      //    Areas[mainArea][subLoc].push("Exalted Relic");
-      //  }
-    //  }
- //   }
+    for (const mainArea in Areas) {
+      for (const subLoc in Areas[mainArea]) {
+        if (!Areas[mainArea][subLoc].includes("Enchant Relic")) {
+          Areas[mainArea][subLoc].push("Enchant Relic");
+        }
+        if (!Areas[mainArea][subLoc].includes("Exalted Relic")) {
+          Areas[mainArea][subLoc].push("Exalted Relic");
+        }
+      }
+    }
 
 
 
@@ -453,7 +453,7 @@ function runSimulation() {
       <td>${c[1]}</td>
       <td>${c[2]}</td>
       <td>${fishBaseWeight}</td>
-      <td>${formatPercent(weightPercents[i])}</td>
+      <td>${formatPercent(LastDynWeights[i])}</td>
       <td>${c[0]}</td>
       <td>${c[4]}</td>
     </tr>`;
@@ -468,6 +468,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
