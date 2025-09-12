@@ -435,7 +435,7 @@ function runSimulation() {
     <thead>
       <tr>
         <th>Name</th><th>Weather</th><th>Time</th><th>Season</th><th>Bait</th>
-        <th>C$</th><th>XP</th><th>KG</th><th>Chance %</th><th>Progress Speed</th><th>Count</th>
+        <th>C$</th><th>XP</th><th>KG</th><th>Chance %</th><th>Chance Weight</th><th>Progress Speed</th><th>Count</th>
       </tr>
     </thead>
     <tbody>`;
@@ -457,6 +457,7 @@ function runSimulation() {
       <td>${c[2]}</td>
       <td>${fishBaseWeight}</td>
       <td>${formatPercent(weightPercents[i])}</td>
+      <td>${lastDynWeights[i].toFixed(3)}</td>
       <td>${c[0]}</td>
       <td>${c[4]}</td>
     </tr>`;
@@ -471,3 +472,4 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
