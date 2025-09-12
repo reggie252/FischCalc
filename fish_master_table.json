@@ -523,7 +523,7 @@
 "Voidfin Mahi": [0, 450, 400, 10, 0, 4, 1, "None", "Spring", "Truffle Worm", "Clear, Windy", 0, 15.5],
 "Oarfish": [-30, 4000, 2000, 0.01, 0, 6, 1, "None", "Winter", "Squid", "Foggy", 0, 250],
 "Lava Bream": [17, 93, 44, 92, 0, 1, 1, "None", "Summer", "Insect", "Windy", 0, 102],
-"Exalted Relic": [-20, 12000, 2500, 0, 0, 1, 1, "None", "None", "None", "None", 0, 21],
+"Exalted Relic": [-20, 12000, 2500, 5, 0, 1, 1, "None", "None", "None", "None", 0, 21],
 "Baby Bloop Fish": [-90, 100000, 80000, 1, 0, 8, 25, "Night", "Autumn", "Luminous Larva", "None", 0, 200],
 "Arapaima": [0, 250, 150, 15, 0, 4, 1, "None", "None", "Minnow", "Rain, Foggy", 0, 200],
 "Spiny Sunstone Lobster": [0, 430, 220, 85, 0, 2, 1, "None", "Summer, Autumn", "None", "Clear", 0, 17],
@@ -843,4 +843,5 @@
 "Sulfur Snapper": [-8, 165, 70, 72, 0, 1, 1, "Night", "Autumn", "Squid", "Foggy", 0, 600],
 "Hollow Gazer": [-15, 2200, 800, 25, 0, 1, 1, "None", "None", "None", "None", 0, 78],
 "Smoldering Stingray": [0, 900, 150, 35, 0, 3, 1, "Night", "Spring", "Seaweed", "None", 0, 17]
+
 }
