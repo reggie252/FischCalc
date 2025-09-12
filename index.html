@@ -355,7 +355,7 @@ function runSimulation() {
               LuckRod, rod, TimeCurrent, SeasonCurrent, WeatherCurrent
           );
       });
-  
+      rawDynWeights = dynWeights.slice();
       // Assign relic percentages if rod qualifies (outside The Depths)
       const relicPercentages = {};
       if (rodMaxKG >= (Choices["Enchant Relic"]?.[12] || 0) && currentArea !== "The Depths") {
@@ -394,7 +394,7 @@ function runSimulation() {
       // Pick fish based on weighted chance
       const sel = randomChoiceWeighted(fishKeys, dynWeights);
       Choices[sel][4] = (Choices[sel][4] || 0) + 1;
-      rawDynWeights = dynWeights.slice();
+      
       lastDynWeights = dynWeights.slice(); // save final weights including relics
       return progressFormula(Choices[sel], ProgressRod);
   }
@@ -474,6 +474,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
