@@ -96,47 +96,16 @@ async function loadFiles() {
     Enchantments = await fetchJson(baseUrl + "enchantments.json");
     BaitData     = await fetchJson(baseUrl + "bait_table.json");
 
-    for (const mainArea in Areas) {
-      for (const subLoc in Areas[mainArea]) {
-        if (!Areas[mainArea][subLoc].includes("Enchant Relic")) {
-          Areas[mainArea][subLoc].push("Enchant Relic");
-        }
-        if (!Areas[mainArea][subLoc].includes("Exalted Relic")) {
-          Areas[mainArea][subLoc].push("Exalted Relic");
-        }
-      }
-    }
-// Define relic stats if missing
-    FishStats["Enchant Relic"] = FishStats["Enchant Relic"] || [
-      -20,    // Progress Speed
-      12000,      // C$ (sell value)
-      2500,      // XP
-      0.2,      // Base chance
-      0,      // Count (simulation will fill)
-      5,      // Rarity
-      1,      // Hard penalty
-      "None", // Time
-      "None", // Season
-      "None", // Bait
-      "None", // Weather
-      "None", // Event
-      21       // Base KG
-    ];
-    FishStats["Exalted Relic"] = FishStats["Exalted Relic"] || [
-      1.0,
-      0,
-      0,
-      1,      // much rarer base chance
-      0,
-      6,      // Rarity higher
-      1,
-      "None",
-      "None",
-      "None",
-      "None",
-      "None",
-      1
-    ];
+    //for (const mainArea in Areas) {
+     // for (const subLoc in Areas[mainArea]) {
+     //   if (!Areas[mainArea][subLoc].includes("Enchant Relic")) {
+     //     Areas[mainArea][subLoc].push("Enchant Relic");
+     //   }
+      //  if (!Areas[mainArea][subLoc].includes("Exalted Relic")) {
+      //    Areas[mainArea][subLoc].push("Exalted Relic");
+      //  }
+    //  }
+ //   }
 
 
 
@@ -499,6 +468,7 @@ function runSimulation() {
 </script>
 </body>
 </html>
+
 
 
 
